@@ -1,0 +1,56 @@
+body {
+	width: 100%;
+	margin: auto;
+	font-family: Verdana;
+}
+
+header {
+	font-weight: bold;
+}
+
+.headerlogo {
+	float: left;
+	margin-right: 10px;
+}
+
+.headerlogo > img {
+	height: 60px;
+	width: 60px;
+}
+
+#headername {
+	font-size: 40px;
+	color: #603813;
+	padding: 15px;
+	margin: 8px 0px;
+	font-weight: bold;
+}
+
+#welcomeimage {
+	float: right;
+	width: 700px;
+}
+
+#coffeeofthemonth {
+	float: right;
+	width: 300px;
+}
+
+#welcometext {
+	float: left;
+	width: 70%;
+	font-size: 12px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#events {
+	float: right;
+	width: 30%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+footer {
+	clear: both;
+}
