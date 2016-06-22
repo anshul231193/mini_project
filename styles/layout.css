@@ -4,6 +4,10 @@ body {
 	font-family: Verdana;
 }
 
+:not(p) {
+	color: blue;
+ }
+
 header {
 	font-weight: bold;
 }
@@ -38,10 +42,11 @@ header {
 
 #welcometext {
 	float: left;
-	width: 70%;
+	width: 10%;
 	font-size: 12px;
 	margin-top: 20px;
 	margin-bottom: 20px;
+	column-count: 3;
 }
 
 #events {
