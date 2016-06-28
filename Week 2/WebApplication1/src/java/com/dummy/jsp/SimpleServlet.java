@@ -27,7 +27,7 @@ public class SimpleServlet extends HttpServlet {
         if(name != null) {
             resp.getWriter().printf("Hello %s",name);
         } else {
-            resp.getWriter().write("Please enter valid name");
+                    throw new ServletException("Enter a name");
         }
     }
     
@@ -39,7 +39,7 @@ public class SimpleServlet extends HttpServlet {
         if(name != null) {
             resp.getWriter().printf("Hello %s",name);
         } else {
-            resp.getWriter().write("Please enter valid name");
+            throw new ServletException("Enter a name");
         }
     }
     
