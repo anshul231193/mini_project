@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author anshul
  */
-@WebServlet("/home")
+@WebServlet("/")
 public class SimpleServlet extends HttpServlet {
     
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
