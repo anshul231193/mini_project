@@ -8,6 +8,7 @@ package com.dummy.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashSet;
+import java.util.Iterator;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,9 +50,6 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ServletContext application = getServletConfig().getServletContext();
-        HashSet<User> userCollection= (HashSet<User>) application.getAttribute("listUsers");
-        System.out.println(userCollection.size());
         processRequest(request, response);
         
     }
@@ -67,8 +65,31 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        ServletContext application = getServletConfig().getServletContext();
+        HashSet<User> userCollection= (HashSet<User>) application.getAttribute("listUsers");
+        String userName = request.getParameter("username");
+        String pswd = request.getParameter("password");
+        if(userCollection.size() != 0) {
+            int flag = 0;
+            Iterator userItr = userCollection.iterator();
+            while(userItr.hasNext()) {
+                User user = (User)userItr.next();
+                System.out.println(user.getUserName()+ " "+user.getPswd());
+                if(user.getUserName().equals(userName) &&
+                                        user.getPswd().equals(pswd)) {
+                    flag = 1;
+                    response.setHeader("Refresh", "0; URL=index");
+                }
+            }
+            if(flag == 0) {
+                throw new ServletException("Invalid Username or Password");
+            }
+        }
+        else {
+            throw new ServletException("Register First");
+        }
     }
+    
 
     /**
      * Returns a short description of the servlet.
