@@ -16,6 +16,10 @@
     </head>
     <body>
         <div class = "container">
+        <div class="alert alert-success" id="register">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Success!</strong> Successfully registered, You will be soon redirected to login page.
+        </div>
 	<div class="wrapper">
 		<form action="register" method="post" name="Register_Form"  class="form-signin" onsubmit="return validateform()">       
 		    <h3 class="form-signin-heading"> Please Sign Up !!</h3>
@@ -26,6 +30,7 @@
                               <input type="text" class="form-control" id="name" name="name" maxlength="30" required>
 			    </div>
                           <div class="alert alert-warning" id="invalidName">
+                              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             <strong>Warning!</strong> Please Enter Valid Name.
                           </div>
 			     <div class="form-group">

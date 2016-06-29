@@ -8,6 +8,8 @@ package com.dummy.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashSet;
+import java.util.Iterator;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,6 +39,7 @@ public class RegisterServlet extends HttpServlet {
     
     //initialization of Servlet
     public void init() throws ServletException {
+        System.out.println("Hi");
         userCollection = new HashSet<User>();
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -77,8 +80,30 @@ public class RegisterServlet extends HttpServlet {
         String pswd = request.getParameter("pwd");
         String email = request.getParameter("email");
         String mobile = request.getParameter("phone");
-        User user = new User(name,userName,pswd,email,mobile);
-        
+        if(userCollection.size() != 0) {
+            Iterator userItr = userCollection.iterator();
+            while(userItr.hasNext()) {
+                User user = (User)userItr.next();
+                System.out.println(user.getUserName());
+                if(user.getUserName().equals(userName)) {
+                    throw new ServletException("User Already Registered");
+                }
+            }
+            User newUser = new User(name,userName,pswd,email,mobile);
+                   userCollection.add(newUser);
+        }
+        else {
+            User user = new User(name,userName,pswd,email,mobile);
+            userCollection.add(user);
+        }
+        ServletContext application = getServletConfig().getServletContext();
+        application.setAttribute("listUsers", userCollection);
+        PrintWriter out = response.getWriter();
+        out.println("        <link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css\"><div class=\"alert alert-success\" id=\"register\">\n" +
+"            <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n" +
+"            <strong>Success!</strong> Successfully registered, You will be soon redirected to login page.\n" +
+"        </div>");
+        response.setHeader("Refresh", "5; URL=index");
     }
 
     /**

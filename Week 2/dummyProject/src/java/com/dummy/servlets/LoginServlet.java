@@ -7,6 +7,8 @@ package com.dummy.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashSet;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,7 +49,11 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ServletContext application = getServletConfig().getServletContext();
+        HashSet<User> userCollection= (HashSet<User>) application.getAttribute("listUsers");
+        System.out.println(userCollection.size());
         processRequest(request, response);
+        
     }
 
     /**
@@ -61,7 +67,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /**

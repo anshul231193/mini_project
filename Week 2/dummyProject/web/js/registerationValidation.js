@@ -12,6 +12,9 @@ function validateform() {
         invalid.style.display = "block";
         return false;
     }
-    
-    return true;
+    else {
+        var register = document.getElementById("register");
+        register.style.display = "block";
+        return true;
+    }
 }
