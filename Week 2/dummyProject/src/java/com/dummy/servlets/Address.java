@@ -9,7 +9,7 @@ package com.dummy.servlets;
  *
  * @author anshul
  */
-class Address {
+public class Address {
     
     //unique id 
     private int id;
@@ -25,6 +25,14 @@ class Address {
     
     //Country
     private String country;
+
+    public Address(int id,String street, String city, String state, String country) {
+        this.id = id;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+    }
     
     //getters and setters method
     public int getId() {

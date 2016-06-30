@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Iterator;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,13 +40,14 @@ public class RegisterServlet extends HttpServlet {
     
     //initialization of Servlet
     public void init() throws ServletException {
-        System.out.println("Hi");
         userCollection = new HashSet<User>();
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.sendRedirect("register.jsp");
+        RequestDispatcher dispatcher = getServletContext().
+                getRequestDispatcher("/register.jsp");
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -86,6 +88,7 @@ public class RegisterServlet extends HttpServlet {
                 User user = (User)userItr.next();
                 System.out.println(user.getUserName());
                 if(user.getUserName().equals(userName)) {
+                    response.setHeader("Refresh", "5; URL=register");
                     throw new ServletException("User Already Registered");
                 }
             }

@@ -30,7 +30,7 @@ public class User {
         private long mobile;
         
         //Address of User
-        HashSet<Address> address;
+        HashSet<Address> address = new HashSet<Address>();
              
         public User(String name,String username,String pswd,String email, String mobile) {
             this.name = name;

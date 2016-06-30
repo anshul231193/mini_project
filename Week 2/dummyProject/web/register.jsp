@@ -10,6 +10,8 @@
     <head>
         <link href="css/login.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <title>Login Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +23,7 @@
             <strong>Success!</strong> Successfully registered, You will be soon redirected to login page.
         </div>
 	<div class="wrapper">
-		<form action="register" method="post" name="Register_Form"  class="form-signin" onsubmit="return validateform()">       
+		<form action="" method="post" name="Register_Form"  class="form-signin" onsubmit="return validateform()">       
 		    <h3 class="form-signin-heading"> Please Sign Up !!</h3>
 			  <hr class="colorgraph"><br>
 			  

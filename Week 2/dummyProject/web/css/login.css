@@ -53,3 +53,7 @@ input[type="password"] {
 #register {
     display: none;
 }
+
+#address {
+    display: none;
+}
