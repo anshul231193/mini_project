@@ -74,9 +74,14 @@
                 </tr>
                 <c:forEach items="${user.address}" var="listAddress">
                     <tr>
-                        <td><c:out value="${listAddress.street}"></c:out>,<c:out value="${listAddress.city}"></c:out>, <c:out value="${listAddress.state}"></c:out>,<c:out value="${listAddress.country}"></c:out> &nbsp;<button type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-edit"></span>   Edit
-                      </button></td>
+                        <td>
+                            <c:out value="${listAddress.street}"></c:out>,<c:out value="${listAddress.city}"></c:out>, <c:out value="${listAddress.state}"></c:out>,<c:out value="${listAddress.country}"></c:out> &nbsp;
+                            <a href="addEditAddress?id=${listAddress.id}">
+                                <button type="button" class="btn btn-default btn-sm">
+                                 <span class="glyphicon glyphicon-edit"></span>   Edit
+                                </button>
+                            </a>
+                        </td>
                         <td><c:out value="${listAddress.id}"></c:out></td>
                     </tr>
                 </c:forEach>

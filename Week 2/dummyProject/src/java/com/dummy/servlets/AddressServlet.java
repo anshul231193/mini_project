@@ -34,16 +34,23 @@ public class AddressServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    int addressId;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(false);
         if(session.getAttribute("user") == null) {
-            response.sendRedirect("index");
+                response.sendRedirect("index");
         } else {
+            if(request.getParameter("id") != null) {
+                addressId = Integer.parseInt(request.getParameter("id"));
+                displayValuesForm(request,response,session,addressId);
+            } else {
             RequestDispatcher dispatcher = getServletContext().
                     getRequestDispatcher("/addEditAddress.jsp");
             dispatcher.forward(request, response);
+            }
         }
     }
 
@@ -85,6 +92,7 @@ public class AddressServlet extends HttpServlet {
         Address address = new Address(id,street,city,state,country);
         HttpSession session = request.getSession(false);
         addAddress(address,session);
+        addAddress(address, session, addressId);
         PrintWriter out = response.getWriter();
         out.println("<link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css\"><div class=\"alert alert-success\" id=\"register\">\n" +
 "            <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n" +
@@ -121,5 +129,46 @@ public class AddressServlet extends HttpServlet {
         }
     }
 
+    private void displayValuesForm(HttpServletRequest request, HttpServletResponse response,
+            HttpSession session, int addressId) throws ServletException, IOException {
+        User user = (User)session.getAttribute("user");
+        HashSet<Address> listAddress = user.address;
+        Iterator itrAddr = listAddress.iterator();
+        
+        while(itrAddr.hasNext()) {
+            Address adr = (Address)itrAddr.next();
+            if(adr.getId() == addressId) {
+                RequestDispatcher dispatcher = getServletContext().
+                    getRequestDispatcher("/addEditAddress.jsp");
+            request.setAttribute("address", adr);
+            dispatcher.forward(request, response);
+            }
+        }
+    }
+
+    private void addAddress(Address address, HttpSession session, int addressId) {
+        User user = (User) session.getAttribute("user");
+        ServletContext application = getServletConfig().getServletContext();
+        HashSet<User> userCollection = (HashSet<User>) application.
+                getAttribute("listUsers");
+        Iterator userItr = userCollection.iterator();
+        while(userItr.hasNext()) {
+            User newUser = (User)userItr.next(); 
+            if(newUser.getUserName().equals(user.getUserName())) {
+//                   newUser.address.add(address);
+//                   userCollection.add(newUser);]
+                HashSet<Address> newAdr = newUser.address;
+                Iterator itrAdr = newAdr.iterator();
+                while(itrAdr.hasNext()) {
+                    Address adr = (Address)itrAdr.next();
+                    if(adr.getId() == addressId) {
+                        newUser.address.remove(adr);
+                        newUser.address.add(address);
+                        userCollection.add(newUser);
+                    }
+                }
+            }
+        }
+    }
 
 }
