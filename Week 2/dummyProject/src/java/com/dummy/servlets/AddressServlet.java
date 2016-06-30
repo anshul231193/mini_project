@@ -154,22 +154,36 @@ public class AddressServlet extends HttpServlet {
         HashSet<User> userCollection = (HashSet<User>) application.
                 getAttribute("listUsers");
         Iterator userItr = userCollection.iterator();
-        while(userItr.hasNext()) {
-            User newUser = (User)userItr.next(); 
-            if(newUser.getUserName().equals(user.getUserName())) {
-                HashSet<Address> newAdr = newUser.address;
-                Iterator itrAdr = newAdr.iterator();
-                while(itrAdr.hasNext()) {
-                    Address adr = (Address)itrAdr.next();
-                    if(adr.getId() == addressId) {
-                        newUser.address.remove(adr);
-                        newUser.address.add(address);
-                        userCollection.add(newUser);
+        for (Iterator<User> i = userCollection.iterator(); i.hasNext();) {
+            User newUser = i.next();
+            if (newUser.getUserName().equals(user.getUserName())) {
+                HashSet<Address> adr = newUser.address;
+                for (Iterator<Address> j = adr.iterator(); j.hasNext();) {
+                    Address newAdr = j.next();
+                    if(newAdr.getId() == addressId) {
+                        j.remove();
+                        adr.add(address);
                         response.setHeader("Refresh","3; URL=home");
                     }
                 }
             }
         }
+//        while(userItr.hasNext()) {
+//            User newUser = (User)userItr.next(); 
+//            if(newUser.getUserName().equals(user.getUserName())) {
+//                HashSet<Address> newAdr = newUser.address;
+//                Iterator itrAdr = newAdr.iterator();
+//                while(itrAdr.hasNext()) {
+//                    Address adr = (Address)itrAdr.next();
+//                    if(adr.getId() == addressId) {
+//                        newUser.address.remove(adr);
+//                        newUser.address.add(address);
+//                        userCollection.add(newUser);
+//                        response.setHeader("Refresh","3; URL=home");
+//                    }
+//                }
+//            }
+//        }
     }
 
 }
