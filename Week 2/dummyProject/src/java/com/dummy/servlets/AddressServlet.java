@@ -82,6 +82,7 @@ public class AddressServlet extends HttpServlet {
             throws ServletException, IOException {
         
         ServletContext application = getServletConfig().getServletContext();
+        
         int id = (int) application.getAttribute("uniqueId");
         id++;
         application.setAttribute("uniqueId", id);
@@ -92,7 +93,7 @@ public class AddressServlet extends HttpServlet {
         Address address = new Address(id,street,city,state,country);
         HttpSession session = request.getSession(false);
         addAddress(address,session);
-        addAddress(address, session, addressId);
+        addAddress(address, session, addressId, response);
         PrintWriter out = response.getWriter();
         out.println("<link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css\"><div class=\"alert alert-success\" id=\"register\">\n" +
 "            <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n" +
@@ -146,7 +147,8 @@ public class AddressServlet extends HttpServlet {
         }
     }
 
-    private void addAddress(Address address, HttpSession session, int addressId) {
+    private void addAddress(Address address, HttpSession session, int addressId,
+            HttpServletResponse response) {
         User user = (User) session.getAttribute("user");
         ServletContext application = getServletConfig().getServletContext();
         HashSet<User> userCollection = (HashSet<User>) application.
@@ -155,8 +157,6 @@ public class AddressServlet extends HttpServlet {
         while(userItr.hasNext()) {
             User newUser = (User)userItr.next(); 
             if(newUser.getUserName().equals(user.getUserName())) {
-//                   newUser.address.add(address);
-//                   userCollection.add(newUser);]
                 HashSet<Address> newAdr = newUser.address;
                 Iterator itrAdr = newAdr.iterator();
                 while(itrAdr.hasNext()) {
@@ -165,6 +165,7 @@ public class AddressServlet extends HttpServlet {
                         newUser.address.remove(adr);
                         newUser.address.add(address);
                         userCollection.add(newUser);
+                        response.setHeader("Refresh","3; URL=home");
                     }
                 }
             }

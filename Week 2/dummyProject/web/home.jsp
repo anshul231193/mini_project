@@ -66,14 +66,16 @@
     </header>
                 <p>&nbsp;&nbsp;</p>
                 <h3>List of Addresses</h3>
-
+                <form action="deleteAddress" method = "post" name="Delete_Address">
             <table cellspacing="0">
                 <tr>
+                    <th>Id</th>
                     <th>Address</th>
-                    <th>Delete</th>
                 </tr>
+                
                 <c:forEach items="${user.address}" var="listAddress">
                     <tr>
+                        <td><input type="checkbox" name="addressList" value=${listAddress.id}></td>                        
                         <td>
                             <c:out value="${listAddress.street}"></c:out>,<c:out value="${listAddress.city}"></c:out>, <c:out value="${listAddress.state}"></c:out>,<c:out value="${listAddress.country}"></c:out> &nbsp;
                             <a href="addEditAddress?id=${listAddress.id}">
@@ -82,14 +84,14 @@
                                 </button>
                             </a>
                         </td>
-                        <td><c:out value="${listAddress.id}"></c:out></td>
                     </tr>
-                </c:forEach>
-                
+                </c:forEach>                
 
             </table><br>
             <a href="addEditAddress"><button type="button" class="btn btn-primary">Add Address</button></a> 
-            <button type="button" class="btn btn-primary">Delete Addresses</button>
+            <button type="submit" value="submit" class="btn btn-primary">Delete Addresses</button>
+            </form>
+
         </div>
     </body>
 </html>

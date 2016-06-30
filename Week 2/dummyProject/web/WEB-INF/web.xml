@@ -11,7 +11,7 @@
 	</filter-class>
 	<init-param>
 		<param-name>avoid-urls</param-name>
-		<param-value>register.jsp,error.jsp,index,register</param-value>
+		<param-value>register.jsp,error.jsp,register</param-value>
 	</init-param>
     </filter>
     <filter-mapping>
