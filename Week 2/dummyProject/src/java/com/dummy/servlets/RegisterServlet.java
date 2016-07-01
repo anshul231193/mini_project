@@ -40,11 +40,14 @@ public class RegisterServlet extends HttpServlet {
     
     //initialization of Servlet
     public void init() throws ServletException {
-        userCollection = new HashSet<User>();
+        ServletContext application = getServletConfig().getServletContext();
+        userCollection = (HashSet<User>) application.getAttribute("listUsers");
+        System.out.println(userCollection.size());
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         RequestDispatcher dispatcher = getServletContext().
                 getRequestDispatcher("/register.jsp");
         dispatcher.forward(request, response);
@@ -99,8 +102,7 @@ public class RegisterServlet extends HttpServlet {
             User user = new User(name,userName,pswd,email,mobile);
             userCollection.add(user);
         }
-        ServletContext application = getServletConfig().getServletContext();
-        application.setAttribute("listUsers", userCollection);
+        System.out.println(userCollection.size());
         PrintWriter out = response.getWriter();
         out.println("        <link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css\"><div class=\"alert alert-success\" id=\"register\">\n" +
 "            <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n" +
