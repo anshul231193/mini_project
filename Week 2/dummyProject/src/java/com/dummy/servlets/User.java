@@ -6,13 +6,12 @@
 package com.dummy.servlets;
 
 import java.util.HashSet;
-import javafx.scene.control.Cell;
 
 /**
  *
  * @author anshul
  */
-public class User {
+public class User implements java.io.Serializable {
         
         // name of User
         private String name;

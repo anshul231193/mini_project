@@ -9,7 +9,7 @@ package com.dummy.servlets;
  *
  * @author anshul
  */
-public class Address {
+public class Address implements java.io.Serializable{
     
     //unique id 
     private int id;

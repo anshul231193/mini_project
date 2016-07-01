@@ -168,22 +168,6 @@ public class AddressServlet extends HttpServlet {
                 }
             }
         }
-//        while(userItr.hasNext()) {
-//            User newUser = (User)userItr.next(); 
-//            if(newUser.getUserName().equals(user.getUserName())) {
-//                HashSet<Address> newAdr = newUser.address;
-//                Iterator itrAdr = newAdr.iterator();
-//                while(itrAdr.hasNext()) {
-//                    Address adr = (Address)itrAdr.next();
-//                    if(adr.getId() == addressId) {
-//                        newUser.address.remove(adr);
-//                        newUser.address.add(address);
-//                        userCollection.add(newUser);
-//                        response.setHeader("Refresh","3; URL=home");
-//                    }
-//                }
-//            }
-//        }
     }
 
 }

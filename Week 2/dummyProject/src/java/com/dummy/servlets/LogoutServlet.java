@@ -40,11 +40,6 @@ public class LogoutServlet extends HttpServlet {
          RequestDispatcher dispatcher = getServletContext().
                 getRequestDispatcher("/index.jsp");
          dispatcher.forward(request, response);
-//         PrintWriter out = response.getWriter();
-//         out.println("<link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css\"><div class=\"alert alert-success\" id=\"register\">\n" +
-//"            <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n" +
-//"            <strong>Logged Out!</strong>, Go back to <a href=\"index\"> login page.</a>\n" +
-//"        </div>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
