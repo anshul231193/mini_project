@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page buffer="none"%>
 <html>
     <head>
         <link href="css/login.css" rel="stylesheet" type="text/css"/>

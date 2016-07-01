@@ -19,8 +19,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author anshul
  */
-@WebServlet(name = "HomeServlet", urlPatterns = {"/home"})
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "LogoutServlet", urlPatterns = {"/logout"})
+public class LogoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,6 +31,21 @@ public class HomeServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+         HttpSession session=request.getSession();  
+         session.invalidate();
+         
+         RequestDispatcher dispatcher = getServletContext().
+                getRequestDispatcher("/index.jsp");
+         dispatcher.forward(request, response);
+//         PrintWriter out = response.getWriter();
+//         out.println("<link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css\"><div class=\"alert alert-success\" id=\"register\">\n" +
+//"            <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n" +
+//"            <strong>Logged Out!</strong>, Go back to <a href=\"index\"> login page.</a>\n" +
+//"        </div>");
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -44,14 +59,7 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        if(session == null || session.getAttribute("user") == null) {
-            response.sendRedirect("index");
-        } else {
-            RequestDispatcher dispatcher = getServletContext().
-                    getRequestDispatcher("/home.jsp");
-            dispatcher.forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
