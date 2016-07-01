@@ -26,6 +26,33 @@ public class FetchDataListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        
+        System.out.println("Project Deployed");
+        ServletContext application = sce.getServletContext();
+     
+        HashSet<User> userCollection = new HashSet<User>();
+        
+        if(application.getAttribute("listUsers") == null) {
+            try
+            {
+               FileInputStream fileIn = new FileInputStream("/home/anshul/miniProject/Week 2/dummyProject/web/user.ser");
+               ObjectInputStream in = new ObjectInputStream(fileIn);
+               System.out.println(userCollection.size());
+               userCollection = (HashSet<User>) in.readObject();
+               in.close();
+               fileIn.close();
+               System.out.println(userCollection.size());
+            }catch(IOException i)
+            {
+                i.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FetchDataListener.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            application.setAttribute("listUsers", userCollection);
+        } else {
+            userCollection = (HashSet<User>) application.getAttribute("listUsers");
+        }
+     
     }
 
     @Override
@@ -37,7 +64,6 @@ public class FetchDataListener implements ServletContextListener {
         {
            FileOutputStream fileOut = new FileOutputStream("/home/anshul/miniProject/Week 2/dummyProject/web/user.ser");
            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-           System.out.println(userList.size());
            out.writeObject(userList);
            out.close();
            fileOut.close();
