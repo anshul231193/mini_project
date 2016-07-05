@@ -34,7 +34,6 @@ public class AddressServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    int addressId;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -44,8 +43,8 @@ public class AddressServlet extends HttpServlet {
                 response.sendRedirect("index");
         } else {
             if(request.getParameter("id") != null) {
-                addressId = Integer.parseInt(request.getParameter("id"));
-                displayValuesForm(request,response,session,addressId);
+                int id = Integer.parseInt(request.getParameter("id"));
+                displayValuesForm(request,response,session,id);
             } else {
             RequestDispatcher dispatcher = getServletContext().
                     getRequestDispatcher("/addEditAddress.jsp");
@@ -81,9 +80,15 @@ public class AddressServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        int addressId = 0;
+        if(request.getParameter("id") != null) {
+            addressId = Integer.parseInt(request.getParameter("id"));
+        }
         ServletContext application = getServletConfig().getServletContext();
-        
-        int id = (int) application.getAttribute("uniqueId");
+        int id = 0;
+        if(application.getAttribute("uniqueId") != null) {
+            id = (int) application.getAttribute("uniqueId");
+        }
         id++;
         application.setAttribute("uniqueId", id);
         String street = request.getParameter("street");
@@ -92,8 +97,11 @@ public class AddressServlet extends HttpServlet {
         String country = request.getParameter("country");
         Address address = new Address(id,street,city,state,country);
         HttpSession session = request.getSession(false);
-        addAddress(address,session);
-        addAddress(address, session, addressId, response);
+        if(addressId != 0) {
+            addAddress(address, session, addressId, response);
+        } else {
+            addAddress(address,session);
+        }
         PrintWriter out = response.getWriter();
         out.println("<link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css\"><div class=\"alert alert-success\" id=\"register\">\n" +
 "            <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n" +
@@ -161,10 +169,13 @@ public class AddressServlet extends HttpServlet {
                 for (Iterator<Address> j = adr.iterator(); j.hasNext();) {
                     Address newAdr = j.next();
                     if(newAdr.getId() == addressId) {
-                        j.remove();
-                        adr.add(address);
+                        newAdr.setCity(address.getCity());
+                        newAdr.setCountry(address.getCountry());
+                        newAdr.setStreet(address.getStreet());
+                        newAdr.setState(address.getState());
                         response.setHeader("Refresh","3; URL=home");
                     }
+                    adr.add(newAdr);
                 }
             }
         }

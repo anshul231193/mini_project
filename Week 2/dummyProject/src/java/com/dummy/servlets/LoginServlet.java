@@ -98,9 +98,7 @@ public class LoginServlet extends HttpServlet {
                                         user.getPswd().equals(pswd)) {
                     flag = 1;
                     session = request.getSession(true);
-                    if(session.getAttribute("user") == null) {
                         session.setAttribute("user", user);
-                    }
                     response.sendRedirect("home");
 //                    response.setHeader("Refresh", "0; URL=home.jsp");
                 }
