@@ -27,7 +27,7 @@ public class Address implements java.io.Serializable{
     private String country;
 
     public Address(int id,String street, String city, String state, String country) {
-        this.id = id;
+        this.id = id-1;
         this.street = street;
         this.city = city;
         this.state = state;

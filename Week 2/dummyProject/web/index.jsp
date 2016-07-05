@@ -17,6 +17,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        <%  
+            if (session.getAttribute("user") != null) {  
+                 String site = new String("home");
+                 response.setStatus(response.SC_MOVED_TEMPORARILY);
+                 response.setHeader("Location", site);
+            }
+         %>
         <div class = "container">
 	<div class="wrapper">
 		<form action="index" method="post" name="Login_Form" class="form-signin">       
