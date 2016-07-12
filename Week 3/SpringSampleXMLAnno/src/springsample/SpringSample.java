@@ -21,9 +21,9 @@ public class SpringSample {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        //CustomerService service = new CustomerServiceImpl();
-        ApplicationContext appContext = new ClassPathXmlApplicationContext("file:src/main/resources/applicationContext.xml");
-        CustomerService service = appContext.getBean("CustomerService", CustomerService.class);
+        
+        ApplicationContext appContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        CustomerService service = appContext.getBean("customerService",CustomerService.class);
         System.out.println(service.findAll().get(0).getFirstName());
     }
     
