@@ -9,6 +9,7 @@ import com.sample.model.Customer;
 import com.sample.repository.CustomerRepository;
 import com.sample.repository.HibernateCustomerRepositoryImpl;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -16,6 +17,7 @@ import java.util.List;
  */
 public class CustomerServiceImpl implements CustomerService {
     
+    @Autowired
     private CustomerRepository customerRepository;
 
     public CustomerRepository getCustomerRepository() {

@@ -10,6 +10,7 @@ import com.sample.repository.HibernateCustomerRepositoryImpl;
 import com.sample.service.CustomerService;
 import com.sample.service.CustomerServiceImpl;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -18,6 +19,7 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Configuration
+@ComponentScan({"com.sample"})
 public class AppConfig {
     
     @Bean(name = "customerService")
