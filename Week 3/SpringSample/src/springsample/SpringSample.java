@@ -7,6 +7,8 @@ package springsample;
 
 import com.sample.service.CustomerService;
 import com.sample.service.CustomerServiceImpl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -19,8 +21,10 @@ public class SpringSample {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        CustomerService service = new CustomerServiceImpl();
-        
+        //CustomerService service = new CustomerServiceImpl();
+        ApplicationContext appContext = new ClassPathXmlApplicationContext(
+                 "applicationContext.xml");
+        CustomerService service = appContext.getBean("CustomerService", CustomerService.class);
         System.out.println(service.findAll().get(0).getFirstName());
     }
     
