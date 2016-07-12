@@ -5,10 +5,13 @@
  */
 package com.sample.model;
 
+import org.springframework.stereotype.Service;
+
 /**
  *
  * @author anshul
  */
+
 public class Customer {
 
     private String firstName;

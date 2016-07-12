@@ -16,7 +16,15 @@ import java.util.List;
  */
 public class CustomerServiceImpl implements CustomerService {
     
-    private CustomerRepository customerRepository = new HibernateCustomerRepositoryImpl();
+    private CustomerRepository customerRepository;
+
+    public CustomerRepository getCustomerRepository() {
+        return customerRepository;
+    }
+
+    public void setCustomerRepository(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
     
     @Override
     public List<Customer> findAll() {
