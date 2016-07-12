@@ -23,8 +23,9 @@ public class SpringSample {
         // TODO code application logic here
         ApplicationContext appContext = new AnnotationConfigApplicationContext(AppConfig.class);
         CustomerService service= appContext.getBean("customerService",CustomerService.class);
-            
-        System.out.println(service.findAll().get(0).getFirstName());
+        CustomerService service2= appContext.getBean("customerService",CustomerService.class);
+        
+        System.out.println(service2.findAll().get(0).getFirstName());
     }
     
 }
