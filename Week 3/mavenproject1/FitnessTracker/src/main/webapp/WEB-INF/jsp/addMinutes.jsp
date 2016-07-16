@@ -30,5 +30,6 @@
                 </tr>
             </table>
         </form:form>
+        <h1>${goal.minutes}</h1>
     </body>
 </html>
