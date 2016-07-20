@@ -40,12 +40,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 	  http.authorizeRequests()
+                  .antMatchers("/index","/").permitAll()
 		.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 		.and()
-		  .formLogin().loginPage("/login").failureUrl("/login?error")
+		  .formLogin().loginPage("/index").failureUrl("/index?error")
 		  .usernameParameter("username").passwordParameter("password")
 		.and()
-		  .logout().logoutSuccessUrl("/login?logout")
+		  .logout().logoutSuccessUrl("/index?logout")
 		.and()
 		  .exceptionHandling().accessDeniedPage("/403")
 		.and()

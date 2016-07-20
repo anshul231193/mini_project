@@ -38,10 +38,11 @@ public class UserDAOImpl implements UserDAO{
                         user.getPassword(), user.getId());
             } else {
                 // insert
-                String sql = "INSERT INTO contact (username, name, email, address, age, password)"
-                            + " VALUES (?, ?, ?, ?)";
-                jdbcTemplate.update(sql,user.getUsername(), user.getName(), user.getEmail(),
-                        user.getAddress(), user.getAge(), user.getPassword());
+                String sql = "INSERT INTO public.\"user\"(\n" +
+                "             username, password, email, name, age, address)\n" +
+                "    VALUES ( ?, ?, ?, ?, ?, ?);";
+                jdbcTemplate.update(sql,user.getUsername(), user.getPassword(), user.getEmail(),
+                        user.getName(), user.getAge(), user.getAddress());
             }
     }
 
@@ -75,6 +76,32 @@ public class UserDAOImpl implements UserDAO{
        });
  
     }
+    
+    public User getByUserName(String username) {
+        String sql = "SELECT * FROM public.user WHERE username='" + username+"'";
+       return jdbcTemplate.query(sql, new ResultSetExtractor<User>() {
+            @Override
+            public User extractData(ResultSet rs) throws 
+                                    SQLException, DataAccessException {
+                if (rs.next()) {
+                    User user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setName(rs.getString("name"));
+                    user.setEmail(rs.getString("email"));
+                    user.setAddress(rs.getString("address"));
+                    user.setAge(rs.getInt("age"));
+                    user.setUsername(rs.getString("username"));
+                    user.setPassword(rs.getString("password"));
+                    return user;
+                 }
+
+                return null;
+            }
+           
+       });
+ 
+    }
+
 
     public List<User> list() {
         String sql = "SELECT * FROM user";

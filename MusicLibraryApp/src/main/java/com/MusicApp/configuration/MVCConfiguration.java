@@ -32,7 +32,7 @@ public class MVCConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public ViewResolver getViewResolver(){
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/views/");
+        resolver.setPrefix("/WEB-INF/views/jsp/");
         resolver.setSuffix(".jsp");
         return resolver;
     }
@@ -49,7 +49,9 @@ public class MVCConfiguration extends WebMvcConfigurerAdapter {
     
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        registry.addResourceHandler("/css/**").addResourceLocations("/css/");   
+        registry.addResourceHandler("/js/**").addResourceLocations("/js/");   
+
     }
     
     @Bean
