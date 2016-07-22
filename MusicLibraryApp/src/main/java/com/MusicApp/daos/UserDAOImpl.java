@@ -5,24 +5,30 @@
  */
 package com.MusicApp.daos;
 
+import com.MusicApp.Mapper.UserMapper;
 import com.MusicApp.model.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author anshul
  */
+@Repository
 public class UserDAOImpl implements UserDAO{
     
     private JdbcTemplate jdbcTemplate;
  
+    @Autowired
     public UserDAOImpl(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
@@ -123,6 +129,33 @@ public class UserDAOImpl implements UserDAO{
         });
 
         return listUser;
+    }
+
+    @Override
+    public List<String> getUserRoles(String userName) {
+        String sql = "Select role "//
+                + " from public.user_roles where username = ? ";
+         
+        Object[] params = new Object[] { userName };
+         
+        List<String> roles = jdbcTemplate.queryForList(sql,params, String.class);
+         
+        return roles;
+    }
+
+    @Override
+    public User findUserInfo(String username) {
+        String sql = "Select username,password "//
+                + " from public.user where username = ? ";
+ 
+        Object[] params = new Object[] { username };
+        UserMapper mapper = new UserMapper();
+        try {
+            User user = jdbcTemplate.queryForObject(sql, params, mapper);
+            return user;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
     
     

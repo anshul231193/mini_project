@@ -24,4 +24,8 @@ public interface UserDAO {
      
     public List<User> list();
     
+    public List<String> getUserRoles(String userName);
+
+    public User findUserInfo(String username);
+    
 }

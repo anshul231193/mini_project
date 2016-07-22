@@ -5,6 +5,9 @@
  */
 package com.MusicApp.model;
 
+import java.util.List;
+import org.springframework.security.core.GrantedAuthority;
+
 /**
  *
  * @author anshul
@@ -24,6 +27,17 @@ public class User {
     private String address;
     
     private int age;
+
+    public User() {
+    }
+
+    public User(String username, String password) {
+        this.password = password;
+        this.username = username;
+    }
+
+    public User(String username, String password, List<GrantedAuthority> grantList) {
+    }
 
     public int getAge() {
         return age;

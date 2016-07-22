@@ -59,6 +59,8 @@
 			      <label for="address">Address:</label>
 			      <textarea class="form-control" rows="5" id="comment" name="address" required></textarea>
 			    </div>
+                            <input type="hidden" 
+                               name="${_csrf.parameterName}" value="${_csrf.token}" />
 			  <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Register" type="Submit">Register</button>  
                           <h5>Go back to <a href="index"><span style="color:blue;">Login</span></a></h5>
                 </form>

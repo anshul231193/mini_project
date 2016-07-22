@@ -6,7 +6,10 @@
 package com.MusicApp.controller;
 
 import com.MusicApp.service.UserService;
+import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,9 +30,20 @@ public class LoginController {
     
     @Autowired
     UserService userService;
+    
+    HttpSession session;
 
-    @RequestMapping(value = "/index",method = RequestMethod.GET)
-    public String indexPage() {
+    @RequestMapping(value = "/index",method=RequestMethod.GET)
+    public String indexPage(
+            @RequestParam(value = "error",required = false) String error,
+            HttpServletRequest request,Principal principal) {
+        
+        if(error != null) {
+            request.setAttribute("flashKind", "warning");
+        }
+        if(principal!= null && principal.getName() != null){
+            return "redirect:/home";
+        }
         return "index";
     }
     
