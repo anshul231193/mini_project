@@ -6,7 +6,6 @@
 <title>${title}</title>
 </head>
 <body>
-    <jsp:include page="_menu.jsp" />
  
     <h2>Admin Page</h2>
  

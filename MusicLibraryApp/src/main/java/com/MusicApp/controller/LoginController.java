@@ -41,6 +41,9 @@ public class LoginController {
         if(error != null) {
             request.setAttribute("flashKind", "warning");
         }
+        if(request.isUserInRole("ROLE_ADMIN")) {
+            return "redirect:/admin";
+        }
         if(principal!= null && principal.getName() != null){
             return "redirect:/home";
         }
@@ -48,7 +51,15 @@ public class LoginController {
     }
     
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String registerPage() {
+    public String registerPage(Principal principal,HttpServletRequest request) {
+        
+        if(request.isUserInRole("ROLE_ADMIN")) {
+            return "redirect:/admin";
+        }
+        if(principal!= null && principal.getName() != null){
+            return "redirect:/home";
+        }
+
         return "register";
     }
     
@@ -83,16 +94,7 @@ public class LoginController {
 //
 //	}
 
-//	@RequestMapping(value = "/admin**", method = RequestMethod.GET)
-//	public ModelAndView adminPage() {
-//
-//	  ModelAndView model = new ModelAndView();
-//	  model.addObject("title", "Spring Security Login Form - Database Authentication");
-//	  model.addObject("message", "This page is for ROLE_ADMIN only!");
-//	  model.setViewName("admin");
-//	  return model;
-//
-//	}
+	
 
 //	@RequestMapping(value = "/login", method = RequestMethod.GET)
 //	public ModelAndView login(@RequestParam(value = "error", required = false) String error,
@@ -112,7 +114,6 @@ public class LoginController {
 //
 //	}
 	
-	//for 403 access denied page
 //	@RequestMapping(value = "/403", method = RequestMethod.GET)
 //	public ModelAndView accesssDenied() {
 //

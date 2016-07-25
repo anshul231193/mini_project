@@ -6,6 +6,7 @@
 package com.MusicApp.controller;
 
 import com.MusicApp.service.UserService;
+import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +33,15 @@ public class HomeController {
     @RequestMapping(value = "/home")
     public String homePage(HttpServletRequest request,
             @RequestParam(value="username",required=false) String username,
-            @RequestParam(value="password",required=false) String pwd) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName();
-        if(name == null) {
-            return "index";
-        } else {
+            @RequestParam(value="password",required=false) String pwd,
+            Principal principal) {
+        if(request.isUserInRole("ROLE_ADMIN")) {
+            return "redirect:/admin";
+        }
+        if(principal!= null && principal.getName() != null){
             return "home";
+        } else {
+            return "redirect:/index";
         }
     }
 }

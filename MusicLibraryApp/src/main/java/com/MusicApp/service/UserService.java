@@ -41,7 +41,7 @@ public class UserService {
             userDAO.saveOrUpdate(user);
             userRole = new UserRole();
             userRole.setUsername(username);
-            userRole.setRoles("ROLE_USER");
+            userRole.setRoles("USER");
             userRolesDAO.saveOrUpdate(userRole);
    
         } else {

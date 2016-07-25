@@ -4,14 +4,87 @@
     Author     : anshul
 --%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        
     </head>
     <body>
-        <h1>Hello ${pageContext.request.userPrincipal.name}!</h1>
+    <jsp:include page="header.jsp" />
+    <!-- You need this element to prevent the content of the page from jumping up -->
+    <div class="header-fixed-placeholder"></div><br>
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home">Search Music</a></li>
+            <li><a data-toggle="pill" href="#menu1">My Music</a></li>
+            <li><a data-toggle="pill" href="#menu2">All Music</a></li>
+            <li><a data-toggle="pill" href="#menu3">Add Music</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+              <h3>HOME</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+            <div id="menu1" class="tab-pane fade">
+              <h3>Menu 1</h3>
+              <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div id="menu2" class="tab-pane fade">
+              <h3>Menu 2</h3>
+              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            </div>
+            <div id="menu3" class="tab-pane fade">
+              <h3>Add Music</h3>
+              <div class = "container">
+        
+        
+        <div class="wrapper">
+            <c:if test="${not empty message}">
+            <div style= "width:420px;margin:10px auto;" class="alert alert-<c:out value="${flashKind}" /> alert-dismissible"
+            role="alert">
+                <strong>${message}!</strong>
+            </div>
+            </c:if>
+		<form action="" method="post" onsubmit="" name="Register_Form" style="float:left;width:100%;" class="form-signin" onsubmit="return validateform()">       
+		    <h3 class="form-signin-heading"> Add a tune !!</h3>
+			  <hr class="colorgraph"><br>
+			  
+			  <div class="form-group">
+			      <label for="genre">Music Genre:</label>
+                              <input type="text" class="form-control" id="genre" name="genre" maxlength="30" required>
+			    </div>
+                             <div class="form-group">
+			      <label for="title">Title:</label>
+			      <input type="text" class="form-control" id="title" name="title" maxlength="30" required>
+			    </div>
+			    <div class="form-group">
+			      <label for="desc">Description:</label>
+			      <textarea class="form-control" rows="5" id="desc" name="desc" required></textarea>
+                            </div>
+			    <div class="form-group">
+			      <label for="lyrics">Lyrics:</label>
+			      <textarea class="form-control" rows="10" id="lyrics" name="lyrics" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="artistName">Artist Name:</label>
+                                <input type="text" class="form-control" id="artistName" name="artistName" required>
+                            </div>
+                            <div class="form-group">
+			      <label for="albumName">Album Name:</label>
+			      <input type="text" class="form-control" id="albumName" name="albumName" required>
+			    </div>
+                            <input type="hidden" 
+                               name="${_csrf.parameterName}" value="${_csrf.token}" />
+			  <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Register" type="Submit">Submit</button> 
+                </form>
+	</div>
+</div>
+            </div>
+        </div>
+    </div>
     </body>
 </html>

@@ -59,7 +59,7 @@ public class UserDAOImpl implements UserDAO{
     }
 
     public User get(int userId) {
-        String sql = "SELECT * FROM user WHERE id=" + userId;
+       String sql = "SELECT * FROM user WHERE id=" + userId;
        return jdbcTemplate.query(sql, new ResultSetExtractor<User>() {
             @Override
             public User extractData(ResultSet rs) throws 
