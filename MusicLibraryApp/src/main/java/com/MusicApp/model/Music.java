@@ -5,6 +5,8 @@
  */
 package com.MusicApp.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  *
  * @author anshul
@@ -26,6 +28,17 @@ public class Music {
     private String albumName;
     
     private String filePath;
+    
+    MultipartFile file;
+     
+    public MultipartFile getFile() {
+        return file;
+    }
+ 
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+    
 
     public Music(int musicId, String title) {
         this.musicId = musicId;
@@ -33,7 +46,6 @@ public class Music {
     }
 
     public Music() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public String getFilePath() {

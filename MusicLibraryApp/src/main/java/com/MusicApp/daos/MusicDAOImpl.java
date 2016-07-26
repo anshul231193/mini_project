@@ -48,7 +48,7 @@ public class MusicDAOImpl implements MusicDAO{
                 // insert
                 String sql = "INSERT INTO public.\"music\"(\n" +
                 "             genre, title, description, lyrics, artist_name, album_name,file_path)\n" +
-                "    VALUES ( ?, ?, ?, ?, ?, ?);";
+                "    VALUES ( ?, ?, ?, ?, ?, ?, ?);";
                 jdbcTemplate.update(sql,music.getMusicGenre(), music.getTitle(), 
                         music.getDescription(), music.getLyrics(), music.getArtistName(), 
                         music.getAlbumName(),music.getFilePath());
@@ -63,7 +63,7 @@ public class MusicDAOImpl implements MusicDAO{
 
     @Override
     public Music get(int musicId) {
-        String sql = "SELECT * FROM music WHERE id=" + musicId;
+       String sql = "SELECT * FROM music WHERE id=" + musicId;
        return jdbcTemplate.query(sql, new ResultSetExtractor<Music>() {
             @Override
             public Music extractData(ResultSet rs) throws 
@@ -124,6 +124,32 @@ public class MusicDAOImpl implements MusicDAO{
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
+    }
+
+    @Override
+    public Music getByMusicTitle(String title) {
+       String sql = "SELECT * FROM public.music WHERE title='" + title+"'";
+       return jdbcTemplate.query(sql, new ResultSetExtractor<Music>() {
+            @Override
+            public Music extractData(ResultSet rs) throws 
+                                    SQLException, DataAccessException {
+                if (rs.next()) {
+                    Music music = new Music();
+                    music.setMusicId(rs.getInt("music_id"));
+                    music.setMusicGenre(rs.getString("genre"));
+                    music.setTitle(rs.getString("title"));
+                    music.setDescription(rs.getString("description"));
+                    music.setLyrics(rs.getString("lyrics"));
+                    music.setArtistName(rs.getString("artist_name"));
+                    music.setAlbumName(rs.getString("album_name"));
+                    music.setFilePath(rs.getString("file_path"));
+                    return music;
+                 }
+
+                return null;
+            }
+           
+       });
     }
     
 }

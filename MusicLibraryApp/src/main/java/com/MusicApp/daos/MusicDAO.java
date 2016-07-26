@@ -23,6 +23,8 @@ public interface MusicDAO {
     public List<Music> list();
     
     public Music findMusicInfo(String title);
+
+    public Music getByMusicTitle(String title);
     
     
 }
