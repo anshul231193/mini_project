@@ -27,4 +27,8 @@ public class MusicService {
         musicDAO.saveOrUpdate(addMusic);
         return 0;
     }
+
+    public Music getByMusicTitle(String title) {
+        return musicDAO.getByMusicTitle(title);
+    }
 }

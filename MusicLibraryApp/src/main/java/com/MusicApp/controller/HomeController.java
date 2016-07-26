@@ -6,7 +6,10 @@
 package com.MusicApp.controller;
 
 import com.MusicApp.model.Music;
+import com.MusicApp.model.Playlist;
+import com.MusicApp.model.User;
 import com.MusicApp.service.MusicService;
+import com.MusicApp.service.PlaylistService;
 import com.MusicApp.service.UserService;
 import com.MusicApp.util.FileValidator;
 import java.io.File;
@@ -56,6 +59,9 @@ public class HomeController {
     @Autowired
     private MusicService musicService;
     
+    @Autowired
+    private PlaylistService playlistService;
+    
     @InitBinder("addMusic")
     protected void initBinderFileBucket(WebDataBinder binder) {
        binder.setValidator(fileValidator);
@@ -101,10 +107,18 @@ public class HomeController {
                 //Now do something with file...
                 FileCopyUtils.copy(addMusic.getFile().getBytes(), new File(UPLOAD_LOCATION + addMusic.getFile().getOriginalFilename()));
                 addMusic.setFilePath(UPLOAD_LOCATION + addMusic.getFile().getOriginalFilename());
+                
                 if(musicService.createMusic(addMusic) == -1) {
                     model.addAttribute("message","Music Already Exists");
                     model.addAttribute("flashKind","warning");
                 }else {
+                    Music music = musicService.getByMusicTitle(addMusic.getTitle());
+                    User user = userService.getUser(principal.getName());
+                    Playlist playlist = new Playlist();
+                    playlist.setUserId(user.getId());
+                    playlist.setMusicId(music.getMusicId());
+                    playlist.setArchived(false);
+                    playlistService.createPlaylist(playlist);
                     String fileName = multipartFile.getOriginalFilename();
                     model.addAttribute("fileName", fileName);
                     model.addAttribute("message","Music Succesfully Uploaded");
