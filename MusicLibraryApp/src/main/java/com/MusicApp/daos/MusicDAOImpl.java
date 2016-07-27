@@ -151,5 +151,31 @@ public class MusicDAOImpl implements MusicDAO{
            
        });
     }
+
+    @Override
+    public List<Music> getByUserPlaylist(int id, int musicId) {
+        String sql = "SELECT music.music_id,music.genre,music.title,music.description,music.lyrics,music.artist_name,music.album_name,music.file_path FROM public.user \n" +
+                    "INNER JOIN public.playlist ON public.user.id=playlist.user_id \n" +
+                    "INNER JOIN public.music ON music.music_id=playlist.music_id\n" +
+                    "WHERE public.user.id="+id;
+        List<Music> listMusic = jdbcTemplate.query(sql, new RowMapper<Music>() {
+        @Override
+        public Music mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Music music = new Music();
+                music.setMusicId(rs.getInt("music_id"));
+                music.setMusicGenre(rs.getString("genre"));
+                music.setTitle(rs.getString("title"));
+                music.setDescription(rs.getString("description"));
+                music.setLyrics(rs.getString("lyrics"));
+                music.setArtistName(rs.getString("artist_name"));
+                music.setAlbumName(rs.getString("album_name"));
+                music.setFilePath(rs.getString("file_path"));
+                return music;
+            }
+
+        });
+
+        return listMusic;
+    }
     
 }

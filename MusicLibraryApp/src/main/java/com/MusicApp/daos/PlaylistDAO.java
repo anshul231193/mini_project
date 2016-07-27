@@ -15,4 +15,6 @@ import com.MusicApp.model.Playlist;
 public interface PlaylistDAO {
     
     public void saveOrUpdate(Playlist playlist);
+    
+    public Playlist findPlaylistInfo(int userId);
 }

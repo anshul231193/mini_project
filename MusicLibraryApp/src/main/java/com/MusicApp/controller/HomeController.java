@@ -15,6 +15,8 @@ import com.MusicApp.util.FileValidator;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.LinkedList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -77,7 +79,16 @@ public class HomeController {
         }
         if(principal!= null && principal.getName() != null){
             Music music = new Music();
+            List<Music> musicList;
+            User user = userService.getUser(principal.getName());
+            Playlist playlist = playlistService.getByUserId(user.getId());
+            if(playlist != null) {
+                musicList = musicService.getMusicListByUserPlaylist(user,playlist);
+            }else {
+                musicList = new LinkedList<Music>();
+            }
             model.addAttribute("addMusic", music);
+            model.addAttribute("musicList",musicList);
             return "home";
         } else {
             return "redirect:/index";

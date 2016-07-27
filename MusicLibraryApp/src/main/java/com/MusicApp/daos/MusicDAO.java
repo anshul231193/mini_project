@@ -25,6 +25,8 @@ public interface MusicDAO {
     public Music findMusicInfo(String title);
 
     public Music getByMusicTitle(String title);
+
+    public List<Music> getByUserPlaylist(int id, int musicId);
     
     
 }

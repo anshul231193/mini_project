@@ -23,6 +23,10 @@ public class PlaylistService {
     public void createPlaylist(Playlist playlist) {
         playlistDAO.saveOrUpdate(playlist);
     }
+
+    public Playlist getByUserId(int userId) {
+        return playlistDAO.findPlaylistInfo(userId);
+    }
     
     
     

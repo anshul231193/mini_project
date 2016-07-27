@@ -7,6 +7,10 @@ package com.MusicApp.service;
 
 import com.MusicApp.daos.MusicDAO;
 import com.MusicApp.model.Music;
+import com.MusicApp.model.Playlist;
+import com.MusicApp.model.User;
+import java.util.LinkedList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +34,12 @@ public class MusicService {
 
     public Music getByMusicTitle(String title) {
         return musicDAO.getByMusicTitle(title);
+    }
+
+    public List<Music> getMusicListByUserPlaylist(User user, Playlist playlist) {
+        if(musicDAO.getByUserPlaylist(user.getId(),playlist.getMusicId()) != null){
+            return musicDAO.getByUserPlaylist(user.getId(),playlist.getMusicId());
+        }
+        return new LinkedList<Music>();
     }
 }
