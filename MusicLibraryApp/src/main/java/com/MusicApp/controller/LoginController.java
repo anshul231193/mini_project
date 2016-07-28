@@ -36,8 +36,12 @@ public class LoginController {
     @RequestMapping(value = "/index",method=RequestMethod.GET)
     public String indexPage(
             @RequestParam(value = "error",required = false) String error,
+            @RequestParam(value = "logout",required = false) String logout,
             HttpServletRequest request,Principal principal) {
         
+        if(logout != null) {
+            request.setAttribute("flashKind", "success");
+        }
         if(error != null) {
             request.setAttribute("flashKind", "warning");
         }

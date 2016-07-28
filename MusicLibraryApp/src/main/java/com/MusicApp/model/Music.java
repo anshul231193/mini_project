@@ -29,6 +29,16 @@ public class Music {
     
     private String filePath;
     
+    private boolean archived;
+
+    public boolean isArchived() {
+        return archived;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived = archived;
+    }
+    
     MultipartFile file;
      
     public MultipartFile getFile() {

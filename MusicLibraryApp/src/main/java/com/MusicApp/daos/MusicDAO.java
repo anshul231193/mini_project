@@ -27,6 +27,9 @@ public interface MusicDAO {
     public Music getByMusicTitle(String title);
 
     public List<Music> getByUserPlaylist(int id, int musicId);
-    
-    
+
+    public List<Music> getAllMusic();
+
+    public List<Music> searchMusicByKeyword(String searchKeyword);
+        
 }

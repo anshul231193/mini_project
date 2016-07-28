@@ -81,16 +81,38 @@
             </div>
             </div>
             <div id="menu1" class="tab-pane fade">
-              <h3>Menu 1</h3>
-              <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              <h3>My Music</h3>
+             <audio id="audio" preload="auto" tabindex="0" controls="" type="audio/mpeg">
+                 <source type="audio/mp3" src="http://www.archive.org/download/bolero_69/Bolero.mp3">
+                 Sorry, your browser does not support HTML5 audio.
+             </audio>
+            <ul id="playlist">
+                <c:forEach items="${myMusicList}" var="music">
+                <li><a href="<c:out value="${music.filePath}"/>"><c:out value="${music.title}"/></a></li>
+<!--                <li><a href="http://www.archive.org/download/MoonlightSonata_755/Beethoven-MoonlightSonata.mp3">Moonlight Sonata - Beethoven</a></li>
+                <li><a href="http://www.archive.org/download/CanonInD_261/CanoninD.mp3">Canon in D Pachabel</a></li>
+                <li><a href="http://www.archive.org/download/PatrikbkarlChamberSymph/PatrikbkarlChamberSymph_vbr_mp3.zip">patrikbkarl chamber symph</a></li>-->
+                </c:forEach>
+            </ul>
             </div>
             <div id="menu2" class="tab-pane fade">
-              <h3>Menu 2</h3>
-              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+              <h3>All Music</h3>
+              <ul id="playlist">
+                <c:forEach items="${allMusicList}" var="music">
+                <li><a href="<c:out value="${music.filePath}"/>"><c:out value="${music.title}"/></a></li>
+<!--                <li><a href="http://www.archive.org/download/MoonlightSonata_755/Beethoven-MoonlightSonata.mp3">Moonlight Sonata - Beethoven</a></li>
+                <li><a href="http://www.archive.org/download/CanonInD_261/CanoninD.mp3">Canon in D Pachabel</a></li>
+                <li><a href="http://www.archive.org/download/PatrikbkarlChamberSymph/PatrikbkarlChamberSymph_vbr_mp3.zip">patrikbkarl chamber symph</a></li>-->
+                </c:forEach>
+            </ul>
             </div>
             <div id="menu3" class="tab-pane fade">
-              <h3>HOME</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <h3>Search a Tune!!</h3>
+              <form id="searchForm" class="form-wrapper" method="POST" action="search">
+                <input type="text" name="search" id="search" placeholder="Search for..." required>
+                <input type="hidden"  name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <input type="submit" value="go" id="submit">
+              </form>
             </div>
         </div>
     </div>

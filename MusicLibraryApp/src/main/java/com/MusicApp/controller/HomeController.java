@@ -79,16 +79,19 @@ public class HomeController {
         }
         if(principal!= null && principal.getName() != null){
             Music music = new Music();
-            List<Music> musicList;
+            List<Music> myMusicList;
+            List<Music> allMusicList;
             User user = userService.getUser(principal.getName());
             Playlist playlist = playlistService.getByUserId(user.getId());
+            allMusicList = musicService.getAllMusicList();
             if(playlist != null) {
-                musicList = musicService.getMusicListByUserPlaylist(user,playlist);
+                myMusicList = musicService.getMusicListByUserPlaylist(user,playlist);
             }else {
-                musicList = new LinkedList<Music>();
+                myMusicList = new LinkedList<Music>();
             }
             model.addAttribute("addMusic", music);
-            model.addAttribute("musicList",musicList);
+            model.addAttribute("allMusicList",allMusicList);
+            model.addAttribute("myMusicList",myMusicList);
             return "home";
         } else {
             return "redirect:/index";
@@ -140,5 +143,25 @@ public class HomeController {
         } else {
             return "redirect:/index";
         }
+    }
+    
+    @RequestMapping(value = "/search",method = RequestMethod.POST)
+    @ResponseBody
+    public List<Music> searchPage(HttpServletRequest request,Model model,
+            @RequestParam(name="search") String searchKeyword,
+            Principal principal) {
+        List<Music> searchMusic;
+        System.out.println(searchKeyword);
+        if(request.isUserInRole("ROLE_ADMIN")) {
+            
+        }
+        if(principal!= null && principal.getName() != null){
+            System.out.println(searchKeyword);
+            searchMusic = musicService.searchByKeyword(searchKeyword);
+            return searchMusic;
+        } else {
+            
+        }
+        return null;
     }
 }

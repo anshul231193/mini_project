@@ -42,4 +42,12 @@ public class MusicService {
         }
         return new LinkedList<Music>();
     }
+
+    public List<Music> getAllMusicList() {
+        return musicDAO.getAllMusic();
+    }
+
+    public List<Music> searchByKeyword(String searchKeyword) {
+        return musicDAO.searchMusicByKeyword(searchKeyword);
+    }
 }
