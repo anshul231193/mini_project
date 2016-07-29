@@ -5,6 +5,7 @@
  */
 package com.MusicApp.model;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -27,6 +28,26 @@ public class User {
     private String address;
     
     private int age;
+    
+    private String resetPasswordToken;
+
+    private Date resetPasswordExpires;
+
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
+    }
+
+    public Date getResetPasswordExpires() {
+        return resetPasswordExpires;
+    }
+
+    public void setResetPasswordExpires(Date resetPasswordExpires) {
+        this.resetPasswordExpires = resetPasswordExpires;
+    }
 
     public User() {
     }

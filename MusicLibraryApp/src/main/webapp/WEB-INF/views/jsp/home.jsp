@@ -109,12 +109,20 @@
             <div id="menu3" class="tab-pane fade">
               <h3>Search a Tune!!</h3>
               <form id="searchForm" class="form-wrapper" method="POST" action="search">
-                <input type="text" name="search" id="search" placeholder="Search for..." required>
-                <input type="hidden"  name="${_csrf.parameterName}" value="${_csrf.token}" />
-                <input type="submit" value="go" id="submit">
+                <input type="text" name="search" id="search" class="search" placeholder="Search for..." required>
+                <input type="hidden" id="csrfToken" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <input type="submit" value="go" onclick="madeAjaxCall();" id="submit">
               </form>
+                <div  id = 'resultTable'></div><br>
+              <c:forEach items="${searchMusic}" var="music">
+                <li><a href="<c:out value="${music.filePath}"/>"><c:out value="${music.title}"/></a></li>
+<!--                <li><a href="http://www.archive.org/download/MoonlightSonata_755/Beethoven-MoonlightSonata.mp3">Moonlight Sonata - Beethoven</a></li>
+                <li><a href="http://www.archive.org/download/CanonInD_261/CanoninD.mp3">Canon in D Pachabel</a></li>
+                <li><a href="http://www.archive.org/download/PatrikbkarlChamberSymph/PatrikbkarlChamberSymph_vbr_mp3.zip">patrikbkarl chamber symph</a></li>-->
+                </c:forEach>
             </div>
         </div>
     </div>
+        
     </body>
 </html>

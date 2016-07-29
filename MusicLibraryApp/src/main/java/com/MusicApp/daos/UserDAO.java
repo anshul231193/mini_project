@@ -28,4 +28,8 @@ public interface UserDAO {
 
     public User findUserInfo(String username);
     
+    public User findByEmail(String email);
+
+    public User findByResetPasswordToken(String token);
+            
 }

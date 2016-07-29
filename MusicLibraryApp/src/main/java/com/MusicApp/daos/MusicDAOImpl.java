@@ -206,7 +206,7 @@ public class MusicDAOImpl implements MusicDAO{
 
     @Override
     public List<Music> searchMusicByKeyword(String searchKeyword) {
-        String sql = "";
+        String sql = "SELECT * FROM public.music WHERE LOWER(title) LIKE '%"+searchKeyword+"%' OR LOWER(artist_name) LIKE '%"+searchKeyword+"%'";
         List<Music> listMusic = jdbcTemplate.query(sql, new RowMapper<Music>() {
         @Override
         public Music mapRow(ResultSet rs, int rowNum) throws SQLException {

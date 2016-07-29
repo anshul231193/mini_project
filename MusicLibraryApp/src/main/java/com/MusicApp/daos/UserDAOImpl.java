@@ -157,6 +157,16 @@ public class UserDAOImpl implements UserDAO{
             return null;
         }
     }
+
+    @Override
+    public User findByEmail(String email) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public User findByResetPasswordToken(String token) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

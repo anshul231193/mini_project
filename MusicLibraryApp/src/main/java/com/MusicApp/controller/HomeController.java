@@ -18,6 +18,7 @@ import java.security.Principal;
 import java.util.LinkedList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,6 +104,7 @@ public class HomeController {
             @Valid @ModelAttribute("addMusic") Music addMusic,
             BindingResult result,Model model,
             HttpServletRequest request,
+            HttpServletResponse response,
             Principal principal
     ) throws IOException {
         if(request.isUserInRole("ROLE_ADMIN")) {
@@ -137,6 +139,7 @@ public class HomeController {
                     model.addAttribute("fileName", fileName);
                     model.addAttribute("message","Music Succesfully Uploaded");
                     model.addAttribute("flashKind","success");
+                    response.setHeader("Refresh","3; URL=home");
                 }
                 return "home";
               }
@@ -145,23 +148,4 @@ public class HomeController {
         }
     }
     
-    @RequestMapping(value = "/search",method = RequestMethod.POST)
-    @ResponseBody
-    public List<Music> searchPage(HttpServletRequest request,Model model,
-            @RequestParam(name="search") String searchKeyword,
-            Principal principal) {
-        List<Music> searchMusic;
-        System.out.println(searchKeyword);
-        if(request.isUserInRole("ROLE_ADMIN")) {
-            
-        }
-        if(principal!= null && principal.getName() != null){
-            System.out.println(searchKeyword);
-            searchMusic = musicService.searchByKeyword(searchKeyword);
-            return searchMusic;
-        } else {
-            
-        }
-        return null;
-    }
 }
