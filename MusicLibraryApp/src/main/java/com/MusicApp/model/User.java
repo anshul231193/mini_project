@@ -29,24 +29,14 @@ public class User {
     
     private int age;
     
-    private String resetPasswordToken;
+    private String activationKey;
 
-    private Date resetPasswordExpires;
-
-    public String getResetPasswordToken() {
-        return resetPasswordToken;
+    public String getActivationKey() {
+        return activationKey;
     }
 
-    public void setResetPasswordToken(String resetPasswordToken) {
-        this.resetPasswordToken = resetPasswordToken;
-    }
-
-    public Date getResetPasswordExpires() {
-        return resetPasswordExpires;
-    }
-
-    public void setResetPasswordExpires(Date resetPasswordExpires) {
-        this.resetPasswordExpires = resetPasswordExpires;
+    public void setActivationKey(String activationKey) {
+        this.activationKey = activationKey;
     }
 
     public User() {

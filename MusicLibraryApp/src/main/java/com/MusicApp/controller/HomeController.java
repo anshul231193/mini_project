@@ -74,6 +74,7 @@ public class HomeController {
     public String homePage(HttpServletRequest request,Model model,
             @RequestParam(value="username",required=false) String username,
             @RequestParam(value="password",required=false) String pwd,
+            @RequestParam(value="search", required=false) String searchKeyword,
             Principal principal) {
         if(request.isUserInRole("ROLE_ADMIN")) {
             return "redirect:/admin";
@@ -91,6 +92,8 @@ public class HomeController {
                 myMusicList = new LinkedList<Music>();
             }
             model.addAttribute("addMusic", music);
+          
+            
             model.addAttribute("allMusicList",allMusicList);
             model.addAttribute("myMusicList",myMusicList);
             return "home";
@@ -105,8 +108,12 @@ public class HomeController {
             BindingResult result,Model model,
             HttpServletRequest request,
             HttpServletResponse response,
+            @RequestParam(value="search",required=false) String searchKeyword,
             Principal principal
     ) throws IOException {
+        List<Music> myMusicList;
+        List<Music> allMusicList;
+        User user = userService.getUser(principal.getName());
         if(request.isUserInRole("ROLE_ADMIN")) {
             return "redirect:/admin";
         }
@@ -116,7 +123,23 @@ public class HomeController {
                 model.addAttribute("flashKind","warning");
                 System.out.println("validation errors");
                 return "home";
-            } else {            
+            }else if(searchKeyword != null){
+                List<Music> searchMusic;
+                System.out.println(searchKeyword);
+                searchMusic = musicService.searchByKeyword(searchKeyword);
+                System.out.println(searchMusic.size());
+                Playlist playlist = playlistService.getByUserId(user.getId());
+                allMusicList = musicService.getAllMusicList();
+                if(playlist != null) {
+                    myMusicList = musicService.getMusicListByUserPlaylist(user,playlist);
+                }else {
+                    myMusicList = new LinkedList<Music>();
+                }
+                model.addAttribute("allMusicList",allMusicList);
+                model.addAttribute("myMusicList",myMusicList);
+                model.addAttribute("searchMusic",searchMusic);
+                return "home";
+            }else {            
                 System.out.println("Fetching file");
                 MultipartFile multipartFile = addMusic.getFile();
 
@@ -129,7 +152,6 @@ public class HomeController {
                     model.addAttribute("flashKind","warning");
                 }else {
                     Music music = musicService.getByMusicTitle(addMusic.getTitle());
-                    User user = userService.getUser(principal.getName());
                     Playlist playlist = new Playlist();
                     playlist.setUserId(user.getId());
                     playlist.setMusicId(music.getMusicId());
@@ -141,6 +163,15 @@ public class HomeController {
                     model.addAttribute("flashKind","success");
                     response.setHeader("Refresh","3; URL=home");
                 }
+                Playlist playlist = playlistService.getByUserId(user.getId());
+                allMusicList = musicService.getAllMusicList();
+                if(playlist != null) {
+                    myMusicList = musicService.getMusicListByUserPlaylist(user,playlist);
+                }else {
+                    myMusicList = new LinkedList<Music>();
+                }
+                model.addAttribute("allMusicList",allMusicList);
+                model.addAttribute("myMusicList",myMusicList);
                 return "home";
               }
         } else {

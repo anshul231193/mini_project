@@ -31,5 +31,10 @@ public interface UserDAO {
     public User findByEmail(String email);
 
     public User findByResetPasswordToken(String token);
+
+    public User getByEmail(String email);
             
+    public void sendMail(User user);
+
+    public User findByActivationKey(String activationKey);
 }

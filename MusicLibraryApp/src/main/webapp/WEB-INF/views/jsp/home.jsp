@@ -108,7 +108,7 @@
             </div>
             <div id="menu3" class="tab-pane fade">
               <h3>Search a Tune!!</h3>
-              <form id="searchForm" class="form-wrapper" method="POST" action="search">
+              <form id="searchForm" class="form-wrapper" method="POST" action="">
                 <input type="text" name="search" id="search" class="search" placeholder="Search for..." required>
                 <input type="hidden" id="csrfToken" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 <input type="submit" value="go" onclick="madeAjaxCall();" id="submit">

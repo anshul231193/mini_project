@@ -6,6 +6,7 @@
 package com.MusicApp.configuration;
 
 import com.MusicApp.daos.UserDAO;
+import java.util.Properties;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -66,6 +67,23 @@ class ApplicationContextConfig {
       return dataSource;
   }
  
+//        @Bean
+//	public JavaMailSenderImpl javaMailSenderImpl(){
+//		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+//		mailSender.setHost("smtp.gmail.com");
+//		mailSender.setPort(587);
+//		//Set gmail email id
+//		mailSender.setUsername("arvindraivns06@gmail.com");
+//		//Set gmail email password
+//		mailSender.setPassword("password");
+//		Properties prop = mailSender.getJavaMailProperties();
+//		prop.put("mail.transport.protocol", "smtp");
+//		prop.put("mail.smtp.auth", "true");
+//		prop.put("mail.smtp.starttls.enable", "true");
+//		prop.put("mail.debug", "true");
+//		return mailSender;
+//	}
+        
   // Transaction Manager
   @Autowired
   @Bean(name = "transactionManager")

@@ -28,10 +28,11 @@ public class FileValidator implements Validator{
             if (file.getFile().getSize() == 0) {
                 errors.rejectValue("file", "missing.file");
             }
+            if(!"audio/mpeg".equals(file.getFile().getContentType())) {
+                errors.rejectValue("file", "file.extension");
+            }
         }
-        if(!"audio/mpeg".equals(file.getFile().getContentType())) {
-            errors.rejectValue("file", "file.extension");
-        }
+        
     }
     
 }

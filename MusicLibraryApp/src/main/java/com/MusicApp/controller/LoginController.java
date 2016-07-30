@@ -5,6 +5,7 @@
  */
 package com.MusicApp.controller;
 
+import com.MusicApp.model.User;
 import com.MusicApp.service.UserService;
 import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -85,6 +87,56 @@ public class LoginController {
             request.setAttribute("message", "Successfully registered");
         }
         return "register";
+    }
+    
+    @RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
+    public String forgetPassword(Principal principal,HttpServletRequest request){
+        if(request.isUserInRole("ROLE_ADMIN")) {
+            return "redirect:/admin";
+        }
+        if(principal!= null && principal.getName() != null){
+            return "redirect:/home";
+        }
+
+        return "forget-password";
+    }
+    
+    @RequestMapping(value = "/forgotPassword", method = RequestMethod.POST)
+    public String resetPasswordLink(Model model,
+            @RequestParam String username,
+            HttpServletRequest request){
+        if(userService.checkIfUserExists(username)) {
+            String appUrl = 
+            "http://" + request.getServerName() + 
+            ":" + request.getServerPort() + 
+            request.getContextPath();
+            userService.sendMail(userService.getUser(username),appUrl);
+            model.addAttribute("flashKind","success");
+            model.addAttribute("msg","Reset Password Link sent to your registered mail.");
+        } else {
+            model.addAttribute("flashKind","warning");
+            model.addAttribute("msg","Username doesn't exists");
+        }
+        return "forget-password";
+    }
+    
+    @RequestMapping(value = "/resetPassword", method = RequestMethod.GET)
+    public String resetPassword(Principal principal,HttpServletRequest request,
+            Model model,
+            @RequestParam String activationKey) throws Exception {
+        if(request.isUserInRole("ROLE_ADMIN")) {
+            return "redirect:/admin";
+        }
+        if(principal!= null && principal.getName() != null){
+            return "redirect:/home";
+        }
+        User user = userService.getUserByActivationKey(activationKey);
+        if(user == null){
+            throw new Exception("Invalid Reset Link");
+        }
+        System.out.println(activationKey);
+        model.addAttribute("user",user);
+        return "reset-password";
     }
     
 //	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)

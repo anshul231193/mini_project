@@ -38,7 +38,7 @@ public class SearchController {
         System.out.println(searchMusic.size());
         model.addAttribute("addMusic",new Music());
         request.setAttribute("searchMusic",searchMusic);
-        return "home";
+        return "redirect:/home";
         
     }
 }
