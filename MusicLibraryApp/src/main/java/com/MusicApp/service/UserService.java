@@ -126,6 +126,10 @@ public class UserService {
         return userDAO.findByActivationKey(activationKey);
     }
 
+    public void update(User user) {
+        userDAO.saveOrUpdate(user);
+    }
+
 }
     
 

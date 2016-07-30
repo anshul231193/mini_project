@@ -12,6 +12,12 @@
 
 	        <div class = "container">
 	<div class="wrapper">
+                <c:if test="${not empty msg}">
+                    <div style= "width:420px;margin:10px auto;" class="alert alert-<c:out value="${flashKind}" /> alert-dismissible"
+                    role="alert">
+                        <strong>${msg}!!</strong>
+                    </div>
+                </c:if>    
                 <c:if test="${param.error == 'true'}">
                     <div style= "width:420px;margin:10px auto;" class="alert alert-<c:out value="${flashKind}" /> alert-dismissible"
                     role="alert">

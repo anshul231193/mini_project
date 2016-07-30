@@ -139,6 +139,26 @@ public class LoginController {
         return "reset-password";
     }
     
+    @RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
+    public String updatePassword(Model model,
+            @RequestParam String pswd,
+            @RequestParam String confirmpswd,
+            @RequestParam String activationKey) {
+        if(!pswd.equals(confirmpswd)) {
+            model.addAttribute("msg","Password doesn't matches.");
+            model.addAttribute("flashKind","warning");
+            return "reset-password";
+        } else {
+            User user = userService.getUserByActivationKey(activationKey);
+            user.setPassword(pswd);
+            System.out.println(user.getPassword());
+            userService.update(user);
+            model.addAttribute("msg","Password reset successfully");
+            model.addAttribute("flashKind","success");
+        }
+        return "redirect:/index";
+    }
+    
 //	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
 //	public ModelAndView defaultPage() {
 //
