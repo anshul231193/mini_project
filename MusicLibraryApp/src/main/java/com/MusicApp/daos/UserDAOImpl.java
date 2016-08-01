@@ -45,10 +45,10 @@ public class UserDAOImpl implements UserDAO{
         if (user.getId() > 0) {
                 // update
                 String sql = "UPDATE public.user SET username=?, name=?, email=?, address=?, "
-                            + "age=?, password=? WHERE id=?";
+                            + "age=?, password=?,\"activationKey\"=? WHERE id=?";
                 jdbcTemplate.update(sql, user.getUsername(), user.getName(), 
                         user.getEmail(), user.getAddress(), user.getAge(), 
-                        user.getPassword(), user.getId());
+                        user.getPassword(), user.getActivationKey(), user.getId());
                 System.out.println(user.getPassword());
             } else {
                 // insert

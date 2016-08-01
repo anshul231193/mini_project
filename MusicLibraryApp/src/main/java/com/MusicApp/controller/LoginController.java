@@ -11,6 +11,7 @@ import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -132,7 +133,7 @@ public class LoginController {
         }
         User user = userService.getUserByActivationKey(activationKey);
         if(user == null){
-            throw new Exception("Invalid Reset Link");
+            return "resetLinkExpire";
         }
         System.out.println(activationKey);
         model.addAttribute("user",user);
@@ -150,11 +151,16 @@ public class LoginController {
             return "reset-password";
         } else {
             User user = userService.getUserByActivationKey(activationKey);
-            user.setPassword(pswd);
-            System.out.println(user.getPassword());
-            userService.update(user);
-            model.addAttribute("msg","Password reset successfully");
-            model.addAttribute("flashKind","success");
+            if(user==null){
+                return "Link Expired";
+            }else {
+                user.setPassword(pswd);
+                System.out.println(user.getPassword());
+                user.setActivationKey(RandomStringUtils.random(20, false, true));
+                userService.update(user);
+                model.addAttribute("msg","Password reset successfully");
+                model.addAttribute("flashKind","success");
+            }
         }
         return "redirect:/index";
     }

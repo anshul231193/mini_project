@@ -47,7 +47,7 @@ public class UserService {
         message.setFrom("anshulgupta231193@gmail.com");
         message.setTo(user.getEmail());
         message.setSubject("Reset Password Link");
-        message.setText("Hey "+user.getUsername()+"!!\nHere's your reset password link:-\n"
+        message.setText("Hey "+user.getUsername()+"!!\nHere's your one time reset password link:-\n"
                 + url+"/resetPassword?activationKey="+user.getActivationKey());
         mailSender.send(message);
     }
