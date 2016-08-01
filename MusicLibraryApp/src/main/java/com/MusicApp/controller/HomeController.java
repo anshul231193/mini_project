@@ -145,7 +145,7 @@ public class HomeController {
 
                 //Now do something with file...
                 FileCopyUtils.copy(addMusic.getFile().getBytes(), new File(UPLOAD_LOCATION + addMusic.getFile().getOriginalFilename()));
-                addMusic.setFilePath(UPLOAD_LOCATION + addMusic.getFile().getOriginalFilename());
+                addMusic.setFilePath("mp3/" + addMusic.getFile().getOriginalFilename());
                 
                 if(musicService.createMusic(addMusic) == -1) {
                     model.addAttribute("message","Music Already Exists");

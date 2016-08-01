@@ -20,10 +20,10 @@
     <div class="header-fixed-placeholder"></div><br>
     <div class="container">
         <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#home">Add Music</a></li>
-            <li><a data-toggle="pill" href="#menu1">My Music</a></li>
-            <li><a data-toggle="pill" href="#menu2">All Music</a></li>
-            <li><a data-toggle="pill" href="#menu3">Search Music</a></li>
+            <li id="add" class="active"><a data-toggle="tab" href="#home">Add Music</a></li>
+            <li id="my" ><a data-toggle="pill" href="#menu1">My Music</a></li>
+            <li id="all"><a data-toggle="pill" href="#menu2">All Music</a></li>
+            <li id="search"><a data-toggle="pill" href="#menu3">Search Music</a></li>
         </ul>
         <div class="tab-content">
             <div id="home" class="tab-pane fade in active">
@@ -83,28 +83,30 @@
             <div id="menu1" class="tab-pane fade">
               <h3>My Music</h3>
              <audio id="audio" preload="auto" tabindex="0" controls="" type="audio/mpeg">
-                 <source type="audio/mp3" src="http://www.archive.org/download/bolero_69/Bolero.mp3">
+                 <source type="audio/mp3" src="${myMusicList[0].filePath}">
                  Sorry, your browser does not support HTML5 audio.
              </audio>
+                 
             <ul id="playlist">
                 <c:forEach items="${myMusicList}" var="music">
                 <li><a href="<c:out value="${music.filePath}"/>"><c:out value="${music.title}"/></a></li>
-<!--                <li><a href="http://www.archive.org/download/MoonlightSonata_755/Beethoven-MoonlightSonata.mp3">Moonlight Sonata - Beethoven</a></li>
-                <li><a href="http://www.archive.org/download/CanonInD_261/CanoninD.mp3">Canon in D Pachabel</a></li>
-                <li><a href="http://www.archive.org/download/PatrikbkarlChamberSymph/PatrikbkarlChamberSymph_vbr_mp3.zip">patrikbkarl chamber symph</a></li>-->
                 </c:forEach>
             </ul>
+                <script src="js/playlist.js" type="text/javascript"></script>
+        
             </div>
             <div id="menu2" class="tab-pane fade">
               <h3>All Music</h3>
-              <ul id="playlist">
+              <audio id="allaudio" preload="auto" tabindex="0" controls="" type="audio/mpeg">
+                 <source type="audio/mp3" src="${allMusicList[0].filePath}">
+                 Sorry, your browser does not support HTML5 audio.
+              </audio>
+              <ul id="allplaylist">
                 <c:forEach items="${allMusicList}" var="music">
                 <li><a href="<c:out value="${music.filePath}"/>"><c:out value="${music.title}"/></a></li>
-<!--                <li><a href="http://www.archive.org/download/MoonlightSonata_755/Beethoven-MoonlightSonata.mp3">Moonlight Sonata - Beethoven</a></li>
-                <li><a href="http://www.archive.org/download/CanonInD_261/CanoninD.mp3">Canon in D Pachabel</a></li>
-                <li><a href="http://www.archive.org/download/PatrikbkarlChamberSymph/PatrikbkarlChamberSymph_vbr_mp3.zip">patrikbkarl chamber symph</a></li>-->
                 </c:forEach>
             </ul>
+                 <script src="js/allPlaylist.js" type="text/javascript"></script>
             </div>
             <div id="menu3" class="tab-pane fade">
               <h3>Search a Tune!!</h3>

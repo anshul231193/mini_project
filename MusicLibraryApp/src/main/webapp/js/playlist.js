@@ -4,22 +4,26 @@
  * and open the template in the editor.
  */
 
-
-
+var audio;
+var playlist;
+var tracks;
+var current;
 
 init();
+$("#add,#all,#search").click(function () {
+    audio = $('#audio');
+    playlist = $('#playlist');
+    tracks = playlist.find('li a');
+    audio[0].pause();
+});
 function init(){
-    var audio;
-    var playlist;
-    var tracks;
-    var current;
     current = 0;
-    audio = $('audio');
+    audio = $('#audio');
     playlist = $('#playlist');
     tracks = playlist.find('li a');
     len = tracks.length - 1;
-    audio[0].volume = .10;
-    audio[0].play();
+    audio[0].volume = .50;
+    audio[0].pause();
     playlist.find('a').click(function(e){
         e.preventDefault();
         link = $(this);

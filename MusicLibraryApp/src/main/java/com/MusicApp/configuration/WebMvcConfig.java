@@ -50,7 +50,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
          
         //Set the maximum allowed size (in bytes) for each individual file.
-        resolver.setMaxUploadSizePerFile(8242880);//8MB
+        resolver.setMaxUploadSizePerFile(12242880);//12MB
          
         //You may also set other available properties.
          
@@ -88,6 +88,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
        registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(31556926);
        registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(31556926);
        registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(31556926);
+       registry.addResourceHandler("/mp3/**").addResourceLocations("file:/home/anshul/temp/").setCachePeriod(31556926);
    }
  
    // Equivalent for <mvc:default-servlet-handler/> tag
