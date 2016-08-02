@@ -17,4 +17,7 @@ public interface PlaylistDAO {
     public void saveOrUpdate(Playlist playlist);
     
     public Playlist findPlaylistInfo(int userId);
+
+    public Playlist findPlaylistByMusicUserId(int musicId, int userId);
+
 }

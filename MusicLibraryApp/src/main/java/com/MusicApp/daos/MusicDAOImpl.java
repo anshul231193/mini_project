@@ -181,13 +181,12 @@ public class MusicDAOImpl implements MusicDAO{
 
     @Override
     public List<Music> getAllMusic() {
-        String sql = "SELECT playlist.archived,music.music_id,music.genre,music.title,music.description,music.lyrics,music.artist_name,music.album_name,music.file_path FROM public.music\n" +
-                    "INNER JOIN public.playlist ON public.music.music_id=playlist.music_id";
+        String sql = "SELECT * FROM public.music";
         List<Music> listMusic = jdbcTemplate.query(sql, new RowMapper<Music>() {
         @Override
         public Music mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Music music = new Music();
-                music.setArchived(rs.getBoolean("archived"));
+//                music.setArchived(rs.getBoolean("archived"));
                 music.setMusicId(rs.getInt("music_id"));
                 music.setMusicGenre(rs.getString("genre"));
                 music.setTitle(rs.getString("title"));

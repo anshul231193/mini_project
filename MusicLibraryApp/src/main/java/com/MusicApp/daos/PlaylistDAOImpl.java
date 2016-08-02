@@ -34,11 +34,11 @@ public class PlaylistDAOImpl implements PlaylistDAO{
     public void saveOrUpdate(Playlist playlist) {
         if (playlist.getPlayistId()> 0) {
                 // update
-//                String sql = "UPDATE user SET username=?, name=?, email=?, address=?, "
-//                            + "age=?, password=? WHERE contact_id=?";
-//                jdbcTemplate.update(sql, user.getUsername(), user.getName(), 
-//                        user.getEmail(), user.getAddress(), user.getAge(), 
-//                        user.getPassword(), user.getId());
+                String sql = "UPDATE public.playlist\n" +
+                        "   SET playlist_id=?, music_id=?, user_id=?, archived=?\n" +
+                        " WHERE playlist_id=?;";
+                jdbcTemplate.update(sql, playlist.getPlayistId(), playlist.getMusicId(), 
+                        playlist.getUserId(), playlist.isArchived(),playlist.getPlayistId());
             } else {
                 // insert
                 String sql = "INSERT INTO public.\"playlist\"(\n" +
@@ -51,7 +51,29 @@ public class PlaylistDAOImpl implements PlaylistDAO{
 
     @Override
     public Playlist findPlaylistInfo(int userId) {
-        String sql = "SELECT * FROM public.playlist WHERE user_id=" + userId;
+       String sql = "SELECT * FROM public.playlist WHERE user_id=" + userId;
+       return jdbcTemplate.query(sql, new ResultSetExtractor<Playlist>() {
+            @Override
+            public Playlist extractData(ResultSet rs) throws 
+                                    SQLException, DataAccessException {
+                if (rs.next()) {
+                    Playlist playlist = new Playlist();
+                    playlist.setPlayistId(rs.getInt("playlist_id"));
+                    playlist.setMusicId(rs.getInt("music_id"));
+                    playlist.setUserId(rs.getInt("user_id"));
+                    playlist.setArchived(rs.getBoolean("archived"));
+                    return playlist;
+                 }
+
+                return null;
+            }
+           
+       });
+    }
+
+    @Override
+    public Playlist findPlaylistByMusicUserId(int musicId, int userId) {
+       String sql = "SELECT * FROM public.playlist WHERE music_id="+musicId+" AND user_id="+userId;
        return jdbcTemplate.query(sql, new ResultSetExtractor<Playlist>() {
             @Override
             public Playlist extractData(ResultSet rs) throws 

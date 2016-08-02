@@ -27,7 +27,13 @@ public class PlaylistService {
     public Playlist getByUserId(int userId) {
         return playlistDAO.findPlaylistInfo(userId);
     }
-    
-    
+
+    public Playlist findByMusicUserId(int musicId, int userId) {
+        return playlistDAO.findPlaylistByMusicUserId(musicId,userId);
+    }
+
+    public void deleteSong(Playlist playlist) {
+        playlistDAO.saveOrUpdate(playlist);
+    }
     
 }

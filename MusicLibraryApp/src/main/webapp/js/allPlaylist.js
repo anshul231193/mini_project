@@ -29,9 +29,9 @@ function allinit(){
     allplaylist = $('#allplaylist');
     alltracks = allplaylist.find('li a');
     len = alltracks.length - 1;
-    allaudio[0].volume = .10;
+    allaudio[0].volume = .50;
     allaudio[0].pause();
-    allplaylist.find('a').click(function(e){
+    allplaylist.find('li a').click(function(e){
         e.preventDefault();
         link = $(this);
         current = link.parent().index();
@@ -41,9 +41,9 @@ function allinit(){
         current++;
         if(current == len){
             current = 0;
-            link = allplaylist.find('a')[0];
+            link = allplaylist.find('li a')[0];
         }else{
-            link = allplaylist.find('a')[current];    
+            link = allplaylist.find('li a')[current];    
         }
         allrun($(link),allaudio[0]);
     });

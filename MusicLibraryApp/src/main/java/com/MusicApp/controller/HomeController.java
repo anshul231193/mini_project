@@ -93,7 +93,7 @@ public class HomeController {
             }
             model.addAttribute("addMusic", music);
           
-            
+            model.addAttribute("user",user);
             model.addAttribute("allMusicList",allMusicList);
             model.addAttribute("myMusicList",myMusicList);
             return "home";

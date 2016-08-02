@@ -24,7 +24,7 @@ function init(){
     len = tracks.length - 1;
     audio[0].volume = .50;
     audio[0].pause();
-    playlist.find('a').click(function(e){
+    playlist.find('li a').click(function(e){
         e.preventDefault();
         link = $(this);
         current = link.parent().index();
@@ -34,9 +34,9 @@ function init(){
         current++;
         if(current == len){
             current = 0;
-            link = playlist.find('a')[0];
+            link = playlist.find('li a')[0];
         }else{
-            link = playlist.find('a')[current];    
+            link = playlist.find('li a')[current];    
         }
         run($(link),audio[0]);
     });

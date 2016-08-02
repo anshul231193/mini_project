@@ -38,6 +38,12 @@
                         <strong>${message}!</strong>
                     </div>
                     </c:if>
+                    <c:if test="${not empty msgAddPlaylist}">
+                    <div style= "width:420px;" class="alert alert-<c:out value="${flashKind}" /> alert-dismissible"
+                    role="alert">
+                        <strong>${msgAddPlaylist}!</strong>
+                    </div>
+                    </c:if>
                     <form:form modelAttribute="addMusic" action="home?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data" name="AddMusic_Form" style="float:left;width:100%;" class="form-signin">       
                             <h3 class="form-signin-heading"> Add a tune !!</h3>
                                   <hr class="colorgraph"><br>
@@ -89,21 +95,36 @@
                  
             <ul id="playlist">
                 <c:forEach items="${myMusicList}" var="music">
-                <li><a href="<c:out value="${music.filePath}"/>"><c:out value="${music.title}"/></a></li>
+                    <c:if test="${not music.archived}">
+                        <li><a href="<c:out value="${music.filePath}"/>"><c:out value="${music.title}"/> by <strong>${music.artistName}</strong></a></li>
+                        <a href="deleteFromPlaylist?musicId=${music.musicId}&userId=${user.id}"><span class="glyphicon glyphicon-trash"></span></a>
+                    </c:if>
+                    <c:if test="${music.archived}">
+                        <li style="opacity:0.5;"><a href="#"><c:out value="${music.title}"/> by <strong>${music.artistName}</strong></a></li>
+                        <br>
+                    </c:if>    
                 </c:forEach>
             </ul>
                 <script src="js/playlist.js" type="text/javascript"></script>
         
             </div>
             <div id="menu2" class="tab-pane fade">
-              <h3>All Music</h3>
-              <audio id="allaudio" preload="auto" tabindex="0" controls="" type="audio/mpeg">
+              
+                <h3>All Music</h3>
+              <c:if test="${not empty msgAddPlaylist}">
+                    <div style= "width:420px;" class="alert alert-<c:out value="${flashKind}" /> alert-dismissible"
+                    role="alert">
+                        <strong>${msgAddPlaylist}!</strong>
+                    </div>
+              </c:if>
+              <audio id="allaudio" style="background:#666;width:400px;padding:20px;" preload="auto" tabindex="0" controls="" type="audio/mpeg">
                  <source type="audio/mp3" src="${allMusicList[0].filePath}">
                  Sorry, your browser does not support HTML5 audio.
               </audio>
-              <ul id="allplaylist">
+              <ul id="allplaylist" style="background:#666;width:400px;padding:20px;">
                 <c:forEach items="${allMusicList}" var="music">
-                <li><a href="<c:out value="${music.filePath}"/>"><c:out value="${music.title}"/></a></li>
+                    <li><a href="<c:out value="${music.filePath}"/>"><c:out value="${music.title}"/> by <strong>${music.artistName}</strong></a></li>
+                    <a href="addToPlaylist?musicId=${music.musicId}&userId=${user.id}"><span class="glyphicon glyphicon-plus"></span></a>
                 </c:forEach>
             </ul>
                  <script src="js/allPlaylist.js" type="text/javascript"></script>
@@ -118,10 +139,7 @@
                 <div  id = 'resultTable'></div><br>
               <c:forEach items="${searchMusic}" var="music">
                 <li><a href="<c:out value="${music.filePath}"/>"><c:out value="${music.title}"/></a></li>
-<!--                <li><a href="http://www.archive.org/download/MoonlightSonata_755/Beethoven-MoonlightSonata.mp3">Moonlight Sonata - Beethoven</a></li>
-                <li><a href="http://www.archive.org/download/CanonInD_261/CanoninD.mp3">Canon in D Pachabel</a></li>
-                <li><a href="http://www.archive.org/download/PatrikbkarlChamberSymph/PatrikbkarlChamberSymph_vbr_mp3.zip">patrikbkarl chamber symph</a></li>-->
-                </c:forEach>
+              </c:forEach>
             </div>
         </div>
     </div>
