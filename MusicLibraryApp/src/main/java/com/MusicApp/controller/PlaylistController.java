@@ -8,6 +8,7 @@ package com.MusicApp.controller;
 import com.MusicApp.model.Music;
 import com.MusicApp.model.Playlist;
 import com.MusicApp.service.PlaylistService;
+import com.MusicApp.service.UserService;
 import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +28,9 @@ public class PlaylistController {
     
     @Autowired
     private PlaylistService playlistService;
+    
+    @Autowired
+    private UserService userService;
             
     @RequestMapping(value = "/addToPlaylist", method = RequestMethod.GET)
     public String addPlaylist(HttpServletRequest request,
@@ -34,13 +38,15 @@ public class PlaylistController {
             Principal principal,
             Model model,
             @RequestParam int musicId,
-            @RequestParam int userId){
+            @RequestParam(required=false) Integer userId){
             if(request.isUserInRole("ROLE_ADMIN")) {
                 return "redirect:/admin";
             }
             if(principal!= null && principal.getName() != null){
                 model.addAttribute("addMusic",new Music());
-
+                if(userId == null) {
+                    userId = new Integer(userService.getUser(principal.getName()).getId());
+                }
                 Playlist playlist = playlistService.findByMusicUserId(musicId,userId);
                 if(playlist!=null){
                    model.addAttribute("msgAddPlaylist","Already Added to your Playlist");
