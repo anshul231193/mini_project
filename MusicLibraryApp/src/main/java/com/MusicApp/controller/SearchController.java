@@ -7,6 +7,8 @@ package com.MusicApp.controller;
 
 import com.MusicApp.model.Music;
 import com.MusicApp.service.MusicService;
+import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,17 +30,26 @@ public class SearchController {
     @Autowired
     private MusicService musicService;
     
-    @RequestMapping(value = "/search",method = RequestMethod.POST)
-    public String searchPage(Model model,HttpServletRequest request,
-            @RequestParam(name="search") String searchKeyword,
-             HttpServletResponse response) {
-        List<Music> searchMusic;
-        System.out.println(searchKeyword);
-        searchMusic = musicService.searchByKeyword(searchKeyword);
-        System.out.println(searchMusic.size());
-        model.addAttribute("addMusic",new Music());
-        request.setAttribute("searchMusic",searchMusic);
-        return "redirect:/home";
-        
+    @RequestMapping(value = "/search")
+    @ResponseBody
+    public List<Music> searchPage(Model model,HttpServletRequest request,
+            @RequestParam(required=false) String searchKeyword,
+             HttpServletResponse response,
+             Principal principal) throws IOException {
+        if(request.isUserInRole("ROLE_ADMIN")) {
+           response.sendRedirect("admin");
+        }
+        if(principal!= null && principal.getName() != null){
+            List<Music> searchMusic;
+            System.out.println(searchKeyword);
+            searchMusic = musicService.searchByKeyword(searchKeyword);
+            System.out.println(searchMusic.size());
+            model.addAttribute("addMusic",new Music());
+            request.setAttribute("searchMusic",searchMusic);
+            return searchMusic;
+        } else {
+            response.sendRedirect("index");
+        }
+        return null;
     }
 }

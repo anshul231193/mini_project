@@ -112,23 +112,55 @@
 //    });
 //    
 
+//callback handler for form submit
+$("#searchForm").submit(function(e)
+{
+    var postData = $(this).serializeArray();
+    var formURL = $(this).attr("action");
+    $.ajax(
+    {
+        url : "search",
+        type: "GET",
+        data: {
+            searchKeyword: $(".search").val()
+        },
+        dataType: "JSON",
+        success:function(msg, textStatus, jqXHR) 
+        {
+            //data: return data from server
+            var resDiv = document.getElementById("resultTable");
 
-function madeAjaxCall(){
-    alert(1);
- $.ajax({
-  type: "post",
-  url: "/search",
-  cache: false,    
-  data:'searchKeyword=' + $("#search").val(),
-  datatype: "JSON",
-  success: function(response){
-   $('#resultTable').html("hi");
-   var obj = JSON.parse(response);
-//   $('#resultTable').html("First Name:- " + obj.firstName +"</br>Last Name:- " + obj.lastName  + "</br>Email:- " + obj.email);
-  },
-  error: function(xhr,status){
-      alert(xhr.status);
-   alert('Error while request..');
-  }
- });
-}
+//                    while(resTable.hasChildNodes()){
+//                        resTable.removeChild(resTable.firstChild);
+//                    }
+                        var $table;
+                        
+                        
+            
+                        for (var i = 0; i < msg.length; i++) {
+                            var it = msg[i];
+                            if (i == 0) {
+                                $table = '<audio id="searchaudio" style="background:#666;width:400px;padding:20px;" preload="auto" tabindex="0" controls="" type="audio/mpeg">\n\
+                                <source type="audio/mp3" src="'+it.filePath+'">\n\
+                                Sorry, your browser does not support HTML5 audio.\n\
+                             </audio>';
+
+                            }
+                            $table += '<ul id="searchplaylist" style="background:#666;width:400px;padding:20px;">\n\
+                                    <li><a href="'+it.filePath+'">'+it.title+' by <strong>'+it.artistName+'</strong></a></li>\n\
+                                    <a href="addToPlaylist?musicId='+it.musicId+'&userId='+it.musicId+'"><span class="glyphicon glyphicon-plus"></span></a>\n\
+                                   </ul>';
+
+                        }
+                        resDiv.innerHTML = $table;
+        },
+        error: function(jqXHR, textStatus, errorThrown) 
+        {
+            alert(textStatus);
+            //if fails      
+        }
+    });
+    e.preventDefault(); //STOP default action
+    e.unbind(); //unbind. to stop multiple form submit.
+});
+ 

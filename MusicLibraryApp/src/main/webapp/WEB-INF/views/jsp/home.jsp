@@ -134,12 +134,13 @@
               <form id="searchForm" class="form-wrapper" method="POST" action="">
                 <input type="text" name="search" id="search" class="search" placeholder="Search for..." required>
                 <input type="hidden" id="csrfToken" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                <input type="submit" value="go" onclick="madeAjaxCall();" id="submit">
-              </form>
+                <input type="submit" value="go" id="submit">
+              </form><br><br>
                 <div  id = 'resultTable'></div><br>
               <c:forEach items="${searchMusic}" var="music">
                 <li><a href="<c:out value="${music.filePath}"/>"><c:out value="${music.title}"/></a></li>
               </c:forEach>
+                <script src="js/search.js" type="text/javascript"></script>
             </div>
         </div>
     </div>

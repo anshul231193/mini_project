@@ -36,14 +36,14 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
  
     // Config UTF-8 Encoding.
-   @Override
-   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-       StringHttpMessageConverter stringConverter = new StringHttpMessageConverter();
-       stringConverter.setSupportedMediaTypes(Arrays.asList(new MediaType("text", "plain")));
-       converters.add(stringConverter);
- 
-       // Add other converters ...
-   }
+//   @Override
+//   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+//       StringHttpMessageConverter stringConverter = new StringHttpMessageConverter();
+//       stringConverter.setSupportedMediaTypes(Arrays.asList(new MediaType("text", "plain")));
+//       converters.add(stringConverter);
+// 
+//       // Add other converters ...
+//   }
  
    @Bean(name="multipartResolver") 
     public CommonsMultipartResolver getResolver() throws IOException{
