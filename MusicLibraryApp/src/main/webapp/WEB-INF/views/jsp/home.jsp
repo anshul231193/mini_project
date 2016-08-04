@@ -23,7 +23,7 @@
             <li id="add" class="active"><a data-toggle="tab" href="#home">Add Music</a></li>
             <li id="my" ><a data-toggle="pill" href="#menu1">My Music</a></li>
             <li id="all"><a data-toggle="pill" href="#menu2">All Music</a></li>
-            <li id="search"><a data-toggle="pill" href="#menu3">Search Music</a></li>
+            <li id="searchMusic"><a data-toggle="pill" href="#menu3">Search Music</a></li>
         </ul>
         <div class="tab-content">
             <div id="home" class="tab-pane fade in active">

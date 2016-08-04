@@ -112,6 +112,7 @@
 //    });
 //    
 
+
 //callback handler for form submit
 $("#searchForm").submit(function(e)
 {
@@ -210,4 +211,50 @@ function searchrun(link, player){
     e.preventDefault(); //STOP default action
     e.unbind(); //unbind. to stop multiple form submit.
 });
- 
+
+
+function split(val) {
+    return val.split(/,\s*/);
+}
+function extractLast(term) {
+    return split(term).pop();
+}
+
+$(document).ready(function() {
+
+	$( "#search").autocomplete({
+            source: function (request, response) {
+                $.getJSON("getTags", {
+	            tagName: extractLast(request.term)
+	        }, function( data, status, xhr ) {
+                response( data );
+        });
+	    },
+            
+	    search: function () {
+                
+	        // custom minLength
+	        var term = extractLast(this.value);
+	        if (term.length < 1) {
+	            return false;
+	        }
+	    },
+	    focus: function () {
+	        // prevent value inserted on focus
+	        return false;
+	    },
+	    select: function (event, ui) {
+
+	        var terms = split(this.value);
+	        // remove the current input
+	        terms.pop();
+	        // add the selected item
+	        terms.push(ui.item.value);
+	        // add placeholder to get the comma-and-space at the end
+	        terms.push("");
+	        this.value = terms.join(", ");
+	        return false;
+	    }
+	});
+	
+});

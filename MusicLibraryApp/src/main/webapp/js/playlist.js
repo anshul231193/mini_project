@@ -10,7 +10,7 @@ var tracks;
 var current;
 
 init();
-$("#add,#all,#search").click(function () {
+$("#add,#all,#searchMusic").click(function () {
     audio = $('#audio');
     playlist = $('#playlist');
     tracks = playlist.find('li a');

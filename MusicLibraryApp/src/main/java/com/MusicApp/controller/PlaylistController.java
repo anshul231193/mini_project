@@ -9,6 +9,7 @@ import com.MusicApp.model.Music;
 import com.MusicApp.model.Playlist;
 import com.MusicApp.service.PlaylistService;
 import com.MusicApp.service.UserService;
+import java.io.IOException;
 import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +32,21 @@ public class PlaylistController {
     
     @Autowired
     private UserService userService;
+    
+    
+    @RequestMapping(value = "/mp3/**", method = RequestMethod.GET)
+    public void mp3(Principal principal,Model model,
+            HttpServletRequest request,
+            HttpServletResponse response) throws IOException{
+        if(principal!= null && principal.getName() != null){
             
+        }else {
+            response.sendRedirect("../index");
+        }
+    }
+
+
+    
     @RequestMapping(value = "/addToPlaylist", method = RequestMethod.GET)
     public String addPlaylist(HttpServletRequest request,
             HttpServletResponse response,

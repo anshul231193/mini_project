@@ -5,11 +5,14 @@
  */
 package com.MusicApp.controller;
 
+import com.MusicApp.domain.Tag;
 import com.MusicApp.model.Music;
 import com.MusicApp.service.MusicService;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,60 @@ public class SearchController {
     @Autowired
     private MusicService musicService;
     
+    List<Tag> data = new ArrayList<Tag>();
+    
+    
+    public SearchController(){
+        // init data for testing
+//	data.add(new Tag(1, "ruby"));
+//	data.add(new Tag(2, "rails"));
+//	data.add(new Tag(3, "c / c++"));
+//	data.add(new Tag(4, ".net"));
+//	data.add(new Tag(5, "python"));
+//	data.add(new Tag(6, "java"));
+//	data.add(new Tag(7, "javascript"));
+//	data.add(new Tag(8, "jscript"));
+    }
+
+    @RequestMapping(value = "/getTags", method = RequestMethod.GET)
+	public @ResponseBody
+	List<Tag> getTags(@RequestParam String tagName,
+                HttpServletRequest request,
+                HttpServletResponse response,
+                Principal principal) throws IOException {
+            if(request.isUserInRole("ROLE_ADMIN")) {
+                response.sendRedirect("admin");
+            }
+            if(principal!= null && principal.getName() != null){
+                return simulateSearchResult(tagName);
+            }else {
+                response.sendRedirect("index");
+            }
+            return null;
+	}
+
+	private List<Tag> simulateSearchResult(String tagName) {
+                data.clear();
+                List<Music> searchMusic;
+                searchMusic = musicService.searchByKeyword(tagName);
+                System.out.println(searchMusic.size());
+                ListIterator<Music> listIterator = searchMusic.listIterator();
+	        int i=0;
+                while (listIterator.hasNext()) {
+                    Music music = listIterator.next();
+                    data.add(new Tag(i,music.getTitle()));
+                    i++;
+	        }
+		List<Tag> result = new ArrayList<Tag>();
+                // iterate a list and filter by tagName
+		for (Tag tag : data) {
+			result.add(tag);
+		}
+                System.out.println(result.size()+" "+data.size());
+		
+		return result;
+	}   
+        
     @RequestMapping(value = "/search")
     @ResponseBody
     public List<Music> searchPage(Model model,HttpServletRequest request,

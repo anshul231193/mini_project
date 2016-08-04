@@ -17,7 +17,7 @@ var alltracks;
 var allcurrent;
 
 allinit();
-$("#add,#my,#search").click(function () {
+$("#add,#my,#searchMusic").click(function () {
     allaudio = $('#allaudio');
     allplaylist = $('#allplaylist');
     tracks = playlist.find('li a');
