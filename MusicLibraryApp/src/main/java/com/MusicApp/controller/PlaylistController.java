@@ -41,7 +41,7 @@ public class PlaylistController {
         if(principal!= null && principal.getName() != null){
             
         }else {
-            response.sendRedirect("../index");
+            response.sendRedirect(request.getContextPath());
         }
     }
 

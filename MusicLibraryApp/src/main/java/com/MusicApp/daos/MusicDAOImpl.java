@@ -38,12 +38,15 @@ public class MusicDAOImpl implements MusicDAO{
     @Override
     public void saveOrUpdate(Music music) {
         if (music.getMusicId()> 0) {
-                // update
-//                String sql = "UPDATE user SET username=?, name=?, email=?, address=?, "
-//                            + "age=?, password=? WHERE contact_id=?";
-//                jdbcTemplate.update(sql, user.getUsername(), user.getName(), 
-//                        user.getEmail(), user.getAddress(), user.getAge(), 
-//                        user.getPassword(), user.getId());
+                 //update
+                String sql = "UPDATE public.music\n" +
+                "   SET music_id=?, genre=?, title=?, description=?, lyrics=?, artist_name=?, \n" +
+                "       album_name=?, file_path=?\n" +
+                " WHERE music_id=?;";
+                jdbcTemplate.update(sql, music.getMusicId(), music.getMusicGenre(), 
+                        music.getTitle(), music.getDescription(), music.getLyrics(), 
+                        music.getArtistName(), music.getAlbumName(),music.getFilePath(),
+                        music.getMusicId());
             } else {
                 // insert
                 String sql = "INSERT INTO public.\"music\"(\n" +
@@ -63,7 +66,7 @@ public class MusicDAOImpl implements MusicDAO{
 
     @Override
     public Music get(int musicId) {
-       String sql = "SELECT * FROM music WHERE id=" + musicId;
+       String sql = "SELECT * FROM public.music WHERE music_id=" + musicId;
        return jdbcTemplate.query(sql, new ResultSetExtractor<Music>() {
             @Override
             public Music extractData(ResultSet rs) throws 

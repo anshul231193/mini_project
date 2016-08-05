@@ -32,6 +32,10 @@ public class MusicService {
         return 0;
     }
 
+    public void update(Music music) {
+        musicDAO.saveOrUpdate(music);
+    }
+    
     public Music getByMusicTitle(String title) {
         return musicDAO.getByMusicTitle(title);
     }
@@ -49,5 +53,9 @@ public class MusicService {
 
     public List<Music> searchByKeyword(String searchKeyword) {
         return musicDAO.searchMusicByKeyword(searchKeyword);
+    }
+
+    public Music getByMusicId(int musicId) {
+        return musicDAO.get(musicId);
     }
 }
