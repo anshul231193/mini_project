@@ -14,8 +14,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <jsp:include page="header.jsp" />
-        <div class="header-fixed-placeholder"></div><br>
+        <jsp:include page="headerAdmin.jsp" />
         <div class = "container">
         
 

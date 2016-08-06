@@ -35,16 +35,6 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 @EnableWebMvc
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
  
-    // Config UTF-8 Encoding.
-//   @Override
-//   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-//       StringHttpMessageConverter stringConverter = new StringHttpMessageConverter();
-//       stringConverter.setSupportedMediaTypes(Arrays.asList(new MediaType("text", "plain")));
-//       converters.add(stringConverter);
-// 
-//       // Add other converters ...
-//   }
- 
    @Bean(name="multipartResolver") 
     public CommonsMultipartResolver getResolver() throws IOException{
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
@@ -73,14 +63,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return resolver;
     }
 
-//    @Bean
-//    public PropertiesFactoryBean propertiesFactoryBean() throws Exception {
-//        PropertiesFactoryBean propertiesFactoryBean = new PropertiesFactoryBean();
-//        Resource resource = new ClassPathResource("src/main/resources/messages.properties");
-//        propertiesFactoryBean.setLocation(resource);
-//        return propertiesFactoryBean;
-//    }
-     
    // Static Resource Config
    // equivalents for <mvc:resources/> tags
    @Override

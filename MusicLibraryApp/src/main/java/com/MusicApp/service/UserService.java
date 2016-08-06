@@ -103,7 +103,7 @@ public class UserService {
     }
 
     public User findByEmail(String email) {
-        return userDAO.getByEmail(email);
+        return userDAO.findByEmail(email);
     }
 
     public void save(User foundUser) {

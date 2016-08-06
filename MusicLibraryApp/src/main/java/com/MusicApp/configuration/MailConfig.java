@@ -9,6 +9,9 @@ import java.util.Properties;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -17,24 +20,32 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
  *
  * @author anshul
  */
-@Configuration 
+@Configuration
+@PropertySource(value="classpath:../mail.properties")
 public class MailConfig {
 
-    private String protocol="smtp"; 
+    @Value("${mail.protocol}")
+    private String protocol; 
 
-    private String host="smtp.gmail.com"; 
+    @Value("${mail.host}")
+    private String host; 
 
-    private int port=25; 
+    @Value("${mail.port}")
+    private int port; 
 
-    private boolean auth=true; 
+    @Value("${mail.auth}")
+    private boolean auth; 
 
-    private boolean starttls=true; 
+    @Value("${mail.starttls}")
+    private boolean starttls; 
 
     private String from; 
 
-    private String username="anshulgupta231193@gmail.com"; 
+    @Value("${mail.username}")
+    private String username; 
 
-    private String password="anshul@231193"; 
+    @Value("${mail.pswd}")
+    private String password; 
  
     @Bean 
     public JavaMailSender javaMailSender() { 
@@ -51,4 +62,11 @@ public class MailConfig {
         return mailSender; 
     } 
     
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertyConfigurer() {
+        PropertySourcesPlaceholderConfigurer pspc = 
+                new PropertySourcesPlaceholderConfigurer();
+//        pspc.setLocation(new ClassPathResource("classpath:../*.properties"));
+        return pspc;
+    }
 }

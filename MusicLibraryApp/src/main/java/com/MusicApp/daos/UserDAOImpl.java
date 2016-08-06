@@ -170,7 +170,7 @@ public class UserDAOImpl implements UserDAO{
 
     @Override
     public User findByEmail(String email) {
-        String sql = "SELECT * FROM public.user WHERE username='" + email+"'";
+        String sql = "SELECT * FROM public.user WHERE email='" + email+"'";
        return jdbcTemplate.query(sql, new ResultSetExtractor<User>() {
             @Override
             public User extractData(ResultSet rs) throws 

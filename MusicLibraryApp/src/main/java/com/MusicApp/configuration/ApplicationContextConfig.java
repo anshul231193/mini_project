@@ -13,8 +13,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -28,6 +31,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan("com.MusicApp.*")
 @EnableTransactionManagement
 @Import({ WebSecurityConfig.class })
+@PropertySource(value="classpath:../database-confg.properties")
 class ApplicationContextConfig {
  
   @Autowired
@@ -57,32 +61,15 @@ class ApplicationContextConfig {
       DriverManagerDataSource dataSource = new DriverManagerDataSource();
  
       // See: datasouce-cfg.properties
-      dataSource.setDriverClassName("org.postgresql.Driver");
-      dataSource.setUrl("jdbc:postgresql://localhost:5432/MusicAppDB");
-      dataSource.setUsername("postgres");
-      dataSource.setPassword("test123");
+      dataSource.setDriverClassName(env.getProperty("database.driver"));
+      dataSource.setUrl("database.url");
+      dataSource.setUsername("database.username");
+      dataSource.setPassword("database.pswd");
  
       System.out.println("## getDataSource: " + dataSource);
  
       return dataSource;
   }
- 
-//        @Bean
-//	public JavaMailSenderImpl javaMailSenderImpl(){
-//		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-//		mailSender.setHost("smtp.gmail.com");
-//		mailSender.setPort(587);
-//		//Set gmail email id
-//		mailSender.setUsername("arvindraivns06@gmail.com");
-//		//Set gmail email password
-//		mailSender.setPassword("password");
-//		Properties prop = mailSender.getJavaMailProperties();
-//		prop.put("mail.transport.protocol", "smtp");
-//		prop.put("mail.smtp.auth", "true");
-//		prop.put("mail.smtp.starttls.enable", "true");
-//		prop.put("mail.debug", "true");
-//		return mailSender;
-//	}
         
   // Transaction Manager
   @Autowired

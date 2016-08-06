@@ -6,6 +6,7 @@
 package com.MusicApp.util;
 
 import com.MusicApp.model.Music;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -16,6 +17,7 @@ import static sun.rmi.transport.TransportConstants.Magic;
  * @author anshul
  */
 @Component
+@PropertySource(value="classpath:../messages.properties")
 public class FileValidator implements Validator{
     
     public boolean supports(Class<?> clazz) {

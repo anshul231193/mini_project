@@ -9,6 +9,7 @@ import com.MusicApp.model.User;
 import com.MusicApp.service.UserService;
 import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
 import org.apache.commons.lang.RandomStringUtils;
@@ -78,9 +79,14 @@ public class LoginController {
             @RequestParam("address") String address,
             HttpServletRequest request
             ) {
-        
-        if(userService.createOrUpdate(name,username,pwd,email,age,address) == -1) {
-            request.setAttribute("message","User Name already exists.");
+       
+        if(userService.findByEmail(email) != null){
+            request.setAttribute("message","Email already exists.");
+            request.setAttribute("flashKind","warning");
+            return "register";
+        }
+        if(userService.createOrUpdate(name,username,pwd,email,age,address) == -1 ) {
+            request.setAttribute("message","User Name/Email already exists.");
             request.setAttribute("flashKind","warning");
         }else {
             request.setAttribute("flashKind","success");
@@ -162,6 +168,37 @@ public class LoginController {
             }
         }
         return "redirect:/index";
+    }
+    
+    
+    @RequestMapping(value = "/changePassword", method = RequestMethod.GET)
+    public String updatePassword(Principal principal,
+            HttpServletRequest request,
+            HttpServletResponse response){
+        if(principal!= null && principal.getName() != null){
+            return "password-change";
+        }
+        return "redirect:/index";
+    }
+    
+    @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+    public String changePassword(@RequestParam String pswd,
+            @RequestParam String confirmpswd,
+            Principal principal,
+            HttpServletResponse response,
+            Model model){
+        if(!pswd.equals(confirmpswd)) {
+            model.addAttribute("msg","Password doesn't matches.");
+            model.addAttribute("flashKind","warning");
+            return "password-change";
+        }
+        User user = userService.getUser(principal.getName());
+        user.setPassword(pswd);
+        userService.save(user);
+        model.addAttribute("msg","Password changed successfully.");
+        model.addAttribute("flashKind","success");
+        response.setHeader("Refresh", "3; url=home");
+        return "password-change";
     }
     
 //	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
