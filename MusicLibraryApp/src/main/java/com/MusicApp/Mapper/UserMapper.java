@@ -12,10 +12,11 @@ import org.springframework.jdbc.core.RowMapper;
 
 /**
  *
- * @author anshul
+ * User Mapper to collect row from user table
  */
 public class UserMapper implements RowMapper<User>{
 
+    //method to collect user from user table
     @Override
     public User mapRow(ResultSet rs, int i) throws SQLException {
         String userName = rs.getString("username");

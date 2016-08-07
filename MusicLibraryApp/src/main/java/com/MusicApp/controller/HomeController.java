@@ -65,11 +65,13 @@ public class HomeController {
     @Autowired
     private PlaylistService playlistService;
     
+    //binding addMusic key with Music object to upload file
     @InitBinder("addMusic")
     protected void initBinderFileBucket(WebDataBinder binder) {
        binder.setValidator(fileValidator);
     }
     
+    //mapping of home page for user
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String homePage(HttpServletRequest request,Model model,
             @RequestParam(value="username",required=false) String username,

@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
- * @author anshul
+ * Model Class for Music Database
  */
 public class Music {
     

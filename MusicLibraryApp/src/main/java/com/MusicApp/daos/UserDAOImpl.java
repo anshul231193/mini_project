@@ -40,6 +40,7 @@ public class UserDAOImpl implements UserDAO{
 //    @Autowired
 //    private JavaMailSenderImpl mailSender;
     
+    //create or update user
     public void saveOrUpdate(User user) {
         
         if (user.getId() > 0) {

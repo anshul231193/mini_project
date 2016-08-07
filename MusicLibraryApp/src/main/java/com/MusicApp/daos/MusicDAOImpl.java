@@ -35,6 +35,7 @@ public class MusicDAOImpl implements MusicDAO{
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
     
+    //create or update Music
     @Override
     public void saveOrUpdate(Music music) {
         if (music.getMusicId()> 0) {
@@ -58,12 +59,14 @@ public class MusicDAOImpl implements MusicDAO{
             }
     }
 
+    //delete song
     @Override
     public void delete(int musicId) {
         String sql = "DELETE FROM music WHERE music_id=?";
         jdbcTemplate.update(sql, musicId);
     }
 
+    //get object of Music
     @Override
     public Music get(int musicId) {
        String sql = "SELECT * FROM public.music WHERE music_id=" + musicId;

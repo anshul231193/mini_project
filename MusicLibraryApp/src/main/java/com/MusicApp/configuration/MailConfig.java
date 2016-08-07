@@ -18,35 +18,44 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 /**
  *
- * @author anshul
+ * Mail Configuration Class
  */
 @Configuration
 @PropertySource(value="classpath:../mail.properties")
 public class MailConfig {
 
+    //smtp protocol
     @Value("${mail.protocol}")
     private String protocol; 
 
+    //smtp host
     @Value("${mail.host}")
     private String host; 
 
+    //smtp port number
     @Value("${mail.port}")
     private int port; 
 
+    //mail authentication allowed
     @Value("${mail.auth}")
     private boolean auth; 
 
+    //mail starttls allowed
     @Value("${mail.starttls}")
     private boolean starttls; 
 
+    //mail from
     private String from; 
 
+    //mail username
     @Value("${mail.username}")
     private String username; 
 
+    //mail password
     @Value("${mail.pswd}")
     private String password; 
  
+    //Bean to configure mail properties
     @Bean 
     public JavaMailSender javaMailSender() { 
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl(); 
@@ -62,6 +71,7 @@ public class MailConfig {
         return mailSender; 
     } 
     
+    //Bean to use properties file
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertyConfigurer() {
         PropertySourcesPlaceholderConfigurer pspc = 

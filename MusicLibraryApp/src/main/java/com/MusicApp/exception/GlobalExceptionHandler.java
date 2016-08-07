@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 import com.MusicApp.exception.KeywordNotFoundException;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    
+          //handling all thn exceptions in general
 	  @ExceptionHandler(Exception.class)
 	  public ModelAndView myError(Exception exception) {
 	    System.out.println("----Caught Exception----");
@@ -19,6 +22,8 @@ public class GlobalExceptionHandler {
 	    mav.setViewName("globalerror");
 	    return mav;
 	  }
+          
+          //handling keyword not found exception
 	  @ExceptionHandler(KeywordNotFoundException.class)
 	  public String notFound() {
             System.out.println("----Caught KeywordNotFoundException----");

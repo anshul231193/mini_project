@@ -30,6 +30,7 @@ public class PlaylistDAOImpl implements PlaylistDAO{
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
     
+    //create or update playlist
     @Override
     public void saveOrUpdate(Playlist playlist) {
         if (playlist.getPlayistId()> 0) {

@@ -9,6 +9,7 @@ import com.MusicApp.daos.UserDAO;
 import java.util.Properties;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -39,7 +40,24 @@ class ApplicationContextConfig {
  
   @Autowired
   private UserDAO userDAO;
+  
+  //database driver
+  @Value("${database.driver}")
+  private String driver;
+  
+  //database url
+  @Value("${database.url}")
+  private String url;
+  
+  //database username
+  @Value("${database.username}")
+  private String username;
+  
+  //database password
+  @Value("${database.driver}")
+  private String password;
  
+  //global message properties file
   @Bean
   public ResourceBundleMessageSource messageSource() {
       ResourceBundleMessageSource rb = new ResourceBundleMessageSource();
@@ -48,6 +66,7 @@ class ApplicationContextConfig {
       return rb;
   }
  
+  //Bean for setting up the view path for views in MVC
   @Bean(name = "viewResolver")
   public InternalResourceViewResolver getViewResolver() {
       InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -56,15 +75,16 @@ class ApplicationContextConfig {
       return viewResolver;
   }
  
+  //datasource for database connections
   @Bean(name = "dataSource")
   public DataSource getDataSource() {
       DriverManagerDataSource dataSource = new DriverManagerDataSource();
  
       // See: datasouce-cfg.properties
-      dataSource.setDriverClassName(env.getProperty("database.driver"));
-      dataSource.setUrl("database.url");
-      dataSource.setUsername("database.username");
-      dataSource.setPassword("database.pswd");
+      dataSource.setDriverClassName("org.postgresql.Driver");
+      dataSource.setUrl("jdbc:postgresql://localhost:5432/MusicAppDB");
+      dataSource.setUsername("postgres");
+      dataSource.setPassword("test123");
  
       System.out.println("## getDataSource: " + dataSource);
  

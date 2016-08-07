@@ -35,6 +35,7 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 @EnableWebMvc
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
  
+    //Bean to configure file upload feature
    @Bean(name="multipartResolver") 
     public CommonsMultipartResolver getResolver() throws IOException{
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
@@ -47,6 +48,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return resolver;
     }
     
+    //bean for configuring message files
     @Bean
     public ResourceBundleMessageSource messageSource() throws Exception {
         ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();

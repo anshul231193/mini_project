@@ -24,6 +24,7 @@ public class FileValidator implements Validator{
         return Music.class.isAssignableFrom(clazz);
     }
  
+    //method to check file validity
     public void validate(Object obj, Errors errors) {
         Music file = (Music) obj;
         if(file.getFile()!=null){

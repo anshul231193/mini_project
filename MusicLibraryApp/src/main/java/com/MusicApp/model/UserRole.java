@@ -7,7 +7,7 @@ package com.MusicApp.model;
 
 /**
  *
- * @author anshul
+ * Model Class for User Roles Database
  */
 public class UserRole {
     

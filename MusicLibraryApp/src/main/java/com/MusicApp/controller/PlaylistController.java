@@ -33,7 +33,7 @@ public class PlaylistController {
     @Autowired
     private UserService userService;
     
-    
+    //only user with proper roles can access mp3 files
     @RequestMapping(value = "/mp3/**", method = RequestMethod.GET)
     public void mp3(Principal principal,Model model,
             HttpServletRequest request,
@@ -46,7 +46,7 @@ public class PlaylistController {
     }
 
 
-    
+    //mapping for adding to playlist
     @RequestMapping(value = "/addToPlaylist", method = RequestMethod.GET)
     public String addPlaylist(HttpServletRequest request,
             HttpServletResponse response,
@@ -83,6 +83,7 @@ public class PlaylistController {
 
     }
     
+    //mapping for archiving the song from playlist
     @RequestMapping(value = "/deleteFromPlaylist", method = RequestMethod.GET)
     public String deleteSong(HttpServletRequest request,
             HttpServletResponse response,

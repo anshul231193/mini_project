@@ -11,7 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 /**
  *
- * @author anshul
+ * Model Class for User Database
  */
 public class User {
     

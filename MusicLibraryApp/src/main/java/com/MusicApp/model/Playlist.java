@@ -7,7 +7,7 @@ package com.MusicApp.model;
 
 /**
  *
- * @author anshul
+ * Model Class for Playlist Database
  */
 public class Playlist {
     

@@ -15,10 +15,11 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 /**
  *
- * @author anshul
+ * Class for setting up dispatcher servlet
  */
 public class SpringWebAppInitializer implements WebApplicationInitializer {
 
+    //method to set dispatcher servlet on load
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();

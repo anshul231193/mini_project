@@ -37,17 +37,9 @@ public class SearchController {
     
     
     public SearchController(){
-        // init data for testing
-//	data.add(new Tag(1, "ruby"));
-//	data.add(new Tag(2, "rails"));
-//	data.add(new Tag(3, "c / c++"));
-//	data.add(new Tag(4, ".net"));
-//	data.add(new Tag(5, "python"));
-//	data.add(new Tag(6, "java"));
-//	data.add(new Tag(7, "javascript"));
-//	data.add(new Tag(8, "jscript"));
     }
 
+    //tags in json format
     @RequestMapping(value = "/getTags", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Tag> getTags(@RequestParam String tagName,
@@ -87,6 +79,7 @@ public class SearchController {
 		return result;
 	}   
         
+    //mapping for search result
     @RequestMapping(value = "/search")
     @ResponseBody
     public List<Music> searchPage(Model model,HttpServletRequest request,

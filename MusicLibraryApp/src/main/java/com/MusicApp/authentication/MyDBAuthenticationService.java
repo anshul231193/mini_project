@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author anshul
+ * This class is used up by spring security to check if user from database has any role.
  */
 @Service
 public class MyDBAuthenticationService implements UserDetailsService{
@@ -27,6 +27,7 @@ public class MyDBAuthenticationService implements UserDetailsService{
     @Autowired
     private UserDAO userDAO;
     
+    //methods to assign and find an user a role
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         com.MusicApp.model.User userInfo = userDAO.findUserInfo(username);

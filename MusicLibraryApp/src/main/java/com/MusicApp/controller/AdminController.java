@@ -30,6 +30,7 @@ public class AdminController {
     @Autowired
     private MusicService musicService;
     
+    //mapping for admin section
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView adminPage(Principal principal,
                 HttpServletRequest request,
@@ -54,6 +55,7 @@ public class AdminController {
           
 	}
         
+        //mapping for edditing music section
         @RequestMapping(value = "/admin/updateMusic", method = RequestMethod.GET)
         public String updateMusic(Model model,
                 HttpServletRequest request,

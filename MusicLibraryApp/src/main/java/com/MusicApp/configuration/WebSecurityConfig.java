@@ -30,18 +30,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         @Autowired
 	DataSource dataSource;
 	
-//	@Autowired
-//	public void configAuthentication(AuthenticationManagerBuilder auth) 
-//                                                            throws Exception {
-//            System.out.println("HI "+dataSource);
-//		
-//	  auth.jdbcAuthentication().dataSource(dataSource)
-//		.usersByUsernameQuery(
-//			"select username, password,enabled from public.user where username=?")
-//		.authoritiesByUsernameQuery(
-//			"select username, role from public.user_roles where username=?");
-//                        
-//        }
         @Autowired
         public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 

@@ -7,7 +7,7 @@ package com.MusicApp.domain;
 
 /**
  *
- * @author anshul
+ * Class to produce json format of search using keywords
  */
 public class Tag {
         public String value;

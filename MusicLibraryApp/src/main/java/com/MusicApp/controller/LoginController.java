@@ -37,6 +37,7 @@ public class LoginController {
     
     HttpSession session;
 
+    //mapping for index page 
     @RequestMapping(value = "/index",method=RequestMethod.GET)
     public String indexPage(
             @RequestParam(value = "error",required = false) String error,
@@ -57,6 +58,7 @@ public class LoginController {
         return "index";
     }
     
+    //mapping for register page
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registerPage(Principal principal,HttpServletRequest request) {
         
@@ -95,6 +97,7 @@ public class LoginController {
         return "register";
     }
     
+    //mapping for forgot password
     @RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
     public String forgetPassword(Principal principal,HttpServletRequest request){
         if(request.isUserInRole("ROLE_ADMIN")) {
@@ -126,6 +129,7 @@ public class LoginController {
         return "forget-password";
     }
     
+    //mapping for reset password
     @RequestMapping(value = "/resetPassword", method = RequestMethod.GET)
     public String resetPassword(Principal principal,HttpServletRequest request,
             Model model,
@@ -170,7 +174,7 @@ public class LoginController {
         return "redirect:/index";
     }
     
-    
+    //mapping for changing password
     @RequestMapping(value = "/changePassword", method = RequestMethod.GET)
     public String updatePassword(Principal principal,
             HttpServletRequest request,

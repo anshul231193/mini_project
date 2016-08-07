@@ -12,10 +12,11 @@ import org.springframework.jdbc.core.RowMapper;
 
 /**
  *
- * @author anshul
+ * Mapper to collect music object from database
  */
 public class MusicMapper implements RowMapper<Music>{
 
+    //method to collect music object from database
     @Override
     public Music mapRow(ResultSet rs, int i) throws SQLException {
         int musicId = rs.getInt("music_id");

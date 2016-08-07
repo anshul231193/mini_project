@@ -42,6 +42,7 @@ public class UserService {
 //    @Autowired
 //    private SimpleMailMessage alertMailMessage;
     
+    //method to send mail
     public void sendMail(User user,String url) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("anshulgupta231193@gmail.com");

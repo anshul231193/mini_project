@@ -42,7 +42,8 @@ public class AccessDeniedController {
 //       return "logoutSuccessfulPage";
 //   }
  
- 
+    
+   //method to redirect to accessdenied page when not authorized
    @RequestMapping(value = "/403", method = RequestMethod.GET)
    public String accessDenied(Model model, Principal principal) {
         
