@@ -46,7 +46,7 @@
               <ul id="allplaylist" style="background:#666;width:400px;padding:20px;">
                 <c:forEach items="${allMusicList}" var="music">
                     <li><a href="<c:out value="${music.filePath}"/>"><c:out value="${music.title}"/> by <strong>${music.artistName}</strong></a></li>
-                    <a href="admin/updateMusic?musicId=${music.musicId}"><span class="glyphicon glyphicon-plus"></span></a>
+                    <a href="admin/updateMusic?musicId=${music.musicId}"><span class="glyphicon glyphicon-pencil"></span></a>
                 </c:forEach>
               </ul>
                 <script src="js/allPlaylist.js" type="text/javascript"></script>

@@ -17,7 +17,7 @@ import static sun.rmi.transport.TransportConstants.Magic;
  * @author anshul
  */
 @Component
-@PropertySource(value="classpath:../messages.properties")
+@PropertySource(value="classpath:messages.properties")
 public class FileValidator implements Validator{
     
     public boolean supports(Class<?> clazz) {

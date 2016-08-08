@@ -32,7 +32,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan("com.MusicApp.*")
 @EnableTransactionManagement
 @Import({ WebSecurityConfig.class })
-@PropertySource(value="classpath:../database-confg.properties")
 class ApplicationContextConfig {
  
   @Autowired
@@ -40,22 +39,6 @@ class ApplicationContextConfig {
  
   @Autowired
   private UserDAO userDAO;
-  
-  //database driver
-  @Value("${database.driver}")
-  private String driver;
-  
-  //database url
-  @Value("${database.url}")
-  private String url;
-  
-  //database username
-  @Value("${database.username}")
-  private String username;
-  
-  //database password
-  @Value("${database.driver}")
-  private String password;
  
   //global message properties file
   @Bean
@@ -74,23 +57,7 @@ class ApplicationContextConfig {
       viewResolver.setSuffix(".jsp");
       return viewResolver;
   }
- 
-  //datasource for database connections
-  @Bean(name = "dataSource")
-  public DataSource getDataSource() {
-      DriverManagerDataSource dataSource = new DriverManagerDataSource();
- 
-      // See: datasouce-cfg.properties
-      dataSource.setDriverClassName("org.postgresql.Driver");
-      dataSource.setUrl("jdbc:postgresql://localhost:5432/MusicAppDB");
-      dataSource.setUsername("postgres");
-      dataSource.setPassword("test123");
- 
-      System.out.println("## getDataSource: " + dataSource);
- 
-      return dataSource;
-  }
-        
+  
   // Transaction Manager
   @Autowired
   @Bean(name = "transactionManager")
@@ -99,5 +66,15 @@ class ApplicationContextConfig {
  
       return transactionManager;
   }
+  
+  //Bean to use properties file
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertyConfigurer() {
+        PropertySourcesPlaceholderConfigurer pspc = 
+                new PropertySourcesPlaceholderConfigurer();
+//        pspc.setLocation(new ClassPathResource("classpath:.properties"));
+        return pspc;
+    }
+  
 
 }

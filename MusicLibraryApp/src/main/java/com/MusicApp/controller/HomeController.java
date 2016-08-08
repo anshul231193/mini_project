@@ -22,6 +22,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,10 +51,12 @@ import org.springframework.web.multipart.MultipartFile;
  * @author anshul
  */
 @Controller
+@PropertySource("classpath:file.properties")
 public class HomeController {
     
     HttpSession session;
     
+    @Value("${file.upload.location}")
     private static String UPLOAD_LOCATION="/home/anshul/temp/";
      
     @Autowired
@@ -82,6 +88,7 @@ public class HomeController {
             return "redirect:/admin";
         }
         if(principal!= null && principal.getName() != null){
+            System.out.println("HI: here is my file: "+UPLOAD_LOCATION);
             Music music = new Music();
             List<Music> myMusicList;
             List<Music> allMusicList;
