@@ -161,7 +161,7 @@ public class LoginController {
         } else {
             User user = userService.getUserByActivationKey(activationKey);
             if(user==null){
-                return "Link Expired";
+                return "resetLinkExpire";
             }else {
                 user.setPassword(pswd);
                 System.out.println(user.getPassword());

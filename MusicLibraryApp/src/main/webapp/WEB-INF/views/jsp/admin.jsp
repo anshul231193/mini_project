@@ -49,6 +49,9 @@
                     <a href="admin/updateMusic?musicId=${music.musicId}"><span class="glyphicon glyphicon-pencil"></span></a>
                 </c:forEach>
               </ul>
+                    <c:forEach begin="1" end="${count}" var="i">
+                        <a href="admin?pageid=${i}"><c:out value="${i}"/></a>
+                    </c:forEach>
                 <script src="js/allPlaylist.js" type="text/javascript"></script>
          </div>
     </body>

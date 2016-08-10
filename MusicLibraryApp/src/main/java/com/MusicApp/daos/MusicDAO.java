@@ -31,5 +31,9 @@ public interface MusicDAO {
     public List<Music> getAllMusic();
 
     public List<Music> searchMusicByKeyword(String searchKeyword);
+
+    public List<Music> getMusicListByPage(int pageid, int total);
+
+    public int getCountRows();
         
 }

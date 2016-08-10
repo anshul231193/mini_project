@@ -58,4 +58,12 @@ public class MusicService {
     public Music getByMusicId(int musicId) {
         return musicDAO.get(musicId);
     }
+
+    public List<Music> getAllMusicListByPage(int pageid, int total) {
+        return musicDAO.getMusicListByPage(pageid,total);
+    }
+
+    public int countRows() {
+        return musicDAO.getCountRows();
+    }
 }

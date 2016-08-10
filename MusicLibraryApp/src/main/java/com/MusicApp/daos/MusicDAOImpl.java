@@ -231,5 +231,34 @@ public class MusicDAOImpl implements MusicDAO{
 
         return listMusic;
     }
+
+    @Override
+    public List<Music> getMusicListByPage(int pageid, int total) {
+        String sql = "select * from public.music limit "+total+" offset "+(total*(pageid-1));  
+        List<Music> listMusic = jdbcTemplate.query(sql, new RowMapper<Music>() {
+        @Override
+        public Music mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Music music = new Music();
+//                music.setArchived(rs.getBoolean("archived"));
+                music.setMusicId(rs.getInt("music_id"));
+                music.setMusicGenre(rs.getString("genre"));
+                music.setTitle(rs.getString("title"));
+                music.setDescription(rs.getString("description"));
+                music.setLyrics(rs.getString("lyrics"));
+                music.setArtistName(rs.getString("artist_name"));
+                music.setAlbumName(rs.getString("album_name"));
+                music.setFilePath(rs.getString("file_path"));
+                return music;
+            }
+
+        });
+
+        return listMusic;
+    }
+
+    @Override
+    public int getCountRows() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
